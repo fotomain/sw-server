@@ -1,0 +1,4 @@
+172.18.0.1 - - [17/Feb/2025:12:29:31 +0000] "GET /phpadmin HTTP/1.1" 200 119852 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" "-" 0.017 0.017 . -
+172.18.0.1 - - [17/Feb/2025:12:29:32 +0000] "GET /favicon.ico HTTP/1.1" 404 119574 "http://localhost/phpadmin" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" "-" 0.007 0.008 . -
+172.18.0.1 - - [17/Feb/2025:12:30:42 +0000] "GET /phpadmin HTTP/1.1" 200 120032 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" "-" 0.008 0.008 . -
+172.18.0.1 - - [17/Feb/2025:12:30:54 +0000] "GET /phpadmin HTTP/1.1" 200 120033 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36" "-" 0.009 0.010 . -
