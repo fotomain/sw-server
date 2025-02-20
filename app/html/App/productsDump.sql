@@ -1,4 +1,3 @@
---
 
 -- DROP DATABASE example_products;
 -- CREATE DATABASE example_products;
