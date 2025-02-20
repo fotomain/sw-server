@@ -13,6 +13,7 @@ class Types
     private static $query;
     private static $mutation;
     private static $product;
+    private static $attribute;
     private static $inputProduct;
 
     public static function product()
@@ -21,7 +22,11 @@ class Types
     }
     public static function attribute()
     {
-        return self::$product?:(self::$product=new AttributeType());
+        return self::$attribute?:(self::$attribute=new AttributeType());
+    }
+    public static function attributeOption()
+    {
+        return self::$product?:(self::$product=new AttributeOptionType());
     }
 
     public static function int()

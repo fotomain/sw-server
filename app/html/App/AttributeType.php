@@ -19,19 +19,28 @@ class AttributeType extends ObjectType
                     'name'=>[
                       'type'=> Types::string(),
                       'description'=> 'Attribute name',
+                    ],
+                    'attributeOptions'=>[
+                        'type'=>Types::listOf(Types::attributeOption()),
+                        'description'=>'attributes of 1 product',
+                        'resolve'=>function ($root,$args){
+
+                            echo "\n === attributeOptions root->id ";
+                            echo "\n ===  ".$root->id;
+
+                            return DB::select("
+                                SELECT DISTINCT aa.attributeOptionId as id , aa.attributeOptionId as name
+                                FROM products_attributes_register AS aa
+                                WHERE aa.attributeSetId = '{$root->id}'
+                            ");
+
+
+//                            return ['id'=>'111'];
+
+
+
+                        }
                     ]
-//                    ', attributeOptions'=>[
-//                        'type'=>Types::listOf(Types::attribute()),
-//                        'description'=>'attributes of 1 product',
-//                        'resolve'=>function ($root){
-//
-//                            $result = DB::selectAttribures();
-//
-//                            return $result;
-//
-//
-//                        }
-//                    ]
 
                 ];
             },

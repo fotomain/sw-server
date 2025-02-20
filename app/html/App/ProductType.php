@@ -10,7 +10,7 @@ class ProductType extends ObjectType
     {
         $config=[
             'description'=>'Product object',
-            'fields'=>function (){
+            'fields'=>function () {
                 return[
                   'id'=>[
                       'type'=> Types::string(),
@@ -29,13 +29,20 @@ class ProductType extends ObjectType
                         'description'=>'attributes of 1 product',
                         'resolve'=>function ($root, $args){
 
+                            echo "\n === args ";
+                            echo json_encode($args);
+                            echo "\n === root->id ";
+                            echo json_encode($root->id);
+
                             return DB::select("
-                                SELECT aa.attributeSetId as id, aa.attributeOptionId as name 
+                                SELECT DISTINCT aa.attributeSetId as id , productId as productId 
                                 FROM products_attributes_register AS aa
                                 WHERE aa.productId = '{$root->id}'
                             ");
 
-//                            $result = DB::selectAttribures();
+//                            SELECT aa.attributeSetId as id, aa.attributeOptionId as name
+//                                FROM products_attributes_register AS aa
+//                                WHERE aa.productId = '{$root->id}'
 
                         }
                     ]
