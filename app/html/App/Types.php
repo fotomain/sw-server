@@ -19,6 +19,10 @@ class Types
     {
         return self::$product?:(self::$product=new ProductType());
     }
+    public static function attribute()
+    {
+        return self::$product?:(self::$product=new AttributeType());
+    }
 
     public static function int()
     {

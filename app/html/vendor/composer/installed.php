@@ -3,7 +3,7 @@
         'name' => 'mgtimber/html',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '20518272d7e0ab8ece6cbcfdefcc5ce97c5a87a6',
+        'reference' => '78c4a88ff0a2a802843ec826c0e090a34a34055c',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'mgtimber/html' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '20518272d7e0ab8ece6cbcfdefcc5ce97c5a87a6',
+            'reference' => '78c4a88ff0a2a802843ec826c0e090a34a34055c',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

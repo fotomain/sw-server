@@ -36,7 +36,7 @@ services:
     # setup specified in the given dockerfile.
     build:
       context: .
-      dockerfile: .docker/php.development.dockerfiles/php8.dev.dockerfile
+      dockerfile: docker/php.development.dockerfiles/php8.dev.dockerfile
 
     # This section sets the environment variables inside the Docker container.
     environment:
@@ -61,7 +61,7 @@ services:
     volumes:
       - ./app:/app
       - ./:/project
-      - ./.docker/xdebug.info:/xdebug.info  # see https://xdebug.org/docs/profiler
+      - ./docker/xdebug.info:/xdebug.info  # see https://xdebug.org/docs/profiler
 
     # This section `command` overrides the default command from the docker image.
     # We are using this to force Docker to start our own command when the container
@@ -130,7 +130,7 @@ services:
       context: .
 #      ssh:
 #        - default
-      dockerfile: .docker/php.production.dockerfiles/php8.prod.dockerfile
+      dockerfile: docker/php.production.dockerfiles/php8.prod.dockerfile
   # `docker compose push php-prod` will push the image to the repository.
 #    image: localhost:5000/yourimage  ## goes to local registry
 #    image: your-dockerid/yourimage  ## goes to your repository on Docker Hub
@@ -155,7 +155,7 @@ services:
     ports:
       - "5000:3306"
     volumes:
-      - ./.docker/db-startup.development:/docker-entrypoint-initdb.d
+      - ./docker/db-startup.development:/docker-entrypoint-initdb.d
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:

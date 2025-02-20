@@ -42,7 +42,7 @@ class MutationType extends ObjectType
                         'type'=>Types::product(),
                         'description'=>"delete 1 product",
                         'args' => [
-                            'id'=>Types::nonNull(Types::int())
+                            'id'=>Types::nonNull(Types::string())
                          ],
                         'resolve' => function($root, $args) {
                             $productReturn=DB::selectOne("SELECT * FROM products_table WHERE id = {$args['id']}");
@@ -55,7 +55,7 @@ class MutationType extends ObjectType
                             'type'=>Types::product(),
                             'description'=>"update 1 product price",
                             'args' => [
-                                'id'=>Types::nonNull(Types::int()),
+                                'id'=>Types::nonNull(Types::string()),
                                 'newPrice'=>Types::int(),
                             ], //args
                             'resolve' => function($root, $args) {

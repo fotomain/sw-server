@@ -17,12 +17,14 @@ class QueryType extends ObjectType
                         'type'=>Types::product(),
                         'description'=> 'return Product by id',
                         'args'=> [
-                            'id'=>Types::int()
+                            'id'=>Types::string()
                         ],
                         'resolve'=> function ($root, $args) {
 //                            echo $args['id'];
 //                            return DB::selectOne("SELECT * FROM products_table WHERE id = 2 ");
-                            return DB::selectOne("SELECT * FROM products_table WHERE id = {$args['id']}");
+//                            333
+                            echo "SELECT * FROM products_table WHERE id = '{$args['id']}'";
+                            return DB::selectOne("SELECT * FROM products_table WHERE id = '{$args['id']}'");
                         }
                     ],
                     'allProducts'=> [

@@ -13,7 +13,7 @@ class ProductType extends ObjectType
             'fields'=>function (){
                 return[
                   'id'=>[
-                      'type'=> Types::int(),
+                      'type'=> Types::string(),
                       'description'=> 'Product identifier',
                   ],
                   'name'=>[
@@ -25,19 +25,17 @@ class ProductType extends ObjectType
                       'description'=> 'Product price',
                   ],
                     'attributes'=>[
-                        'type'=>Types::listOf(Types::product()),
+                        'type'=>Types::listOf(Types::attribute()),
                         'description'=>'attributes of 1 product',
-                        'resolve'=>function ($root){
+                        'resolve'=>function ($root, $args){
+
                             return DB::select("
-                                
-                                SELECT p.* FROM products_attributes_table AS c
-                                    LEFT JOIN attributes_values_table AS p
-                                        ON c.attributeId = p.attributeId
-                                        WHERE c.productId={$root->id}
-                                
+                                SELECT aa.attributeSetId as id, aa.attributeOptionId as name 
+                                FROM products_attributes_register AS aa
+                                WHERE aa.productId = '{$root->id}'
                             ");
 
-
+//                            $result = DB::selectAttribures();
 
                         }
                     ]
