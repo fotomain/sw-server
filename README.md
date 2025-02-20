@@ -1,4 +1,4 @@
-# php-docker-quickstart
+# sw-server
 
 RUN Docker
     from PHPStorm

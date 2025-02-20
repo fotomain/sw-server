@@ -27,8 +27,8 @@ class AttributeType extends ObjectType
 
 //                            echo "\n === attributeOptions root->id ";
 //                            echo "\n ===  ".$root->id;
-                            echo "\n === root ";
-                            echo "\n ===  ".json_encode($root);
+//                            echo "\n === root ";
+//                            echo "\n ===  ".json_encode($root);
 
                             //cool1: use productId from previous level of analytics
                             return DB::select("
