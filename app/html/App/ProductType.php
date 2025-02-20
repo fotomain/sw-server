@@ -29,11 +29,12 @@ class ProductType extends ObjectType
                         'description'=>'attributes of 1 product',
                         'resolve'=>function ($root, $args){
 
-                            echo "\n === args ";
-                            echo json_encode($args);
-                            echo "\n === root->id ";
-                            echo json_encode($root->id);
+//                            echo "\n === args ";
+//                            echo json_encode($args);
+//                            echo "\n === root->id ";
+//                            echo json_encode($root->id);
 
+                            //cool1: select productId for next level of analytics
                             return DB::select("
                                 SELECT DISTINCT aa.attributeSetId as id , productId as productId 
                                 FROM products_attributes_register AS aa

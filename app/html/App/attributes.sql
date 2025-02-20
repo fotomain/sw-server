@@ -51,3 +51,9 @@ where
   and
     attributeSetId = 'Capacity'
 
+-- CHECK NULL
+select *
+from products_attributes_register as reg
+         join attribute_options_table as aa
+              on reg.attributeOptionId = aa.attributeOptionId
+where aa.attributeOptionId is  null
