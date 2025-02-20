@@ -10,7 +10,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `products_table`;
 
-
 CREATE TABLE IF NOT EXISTS `products_table` (
     `id` varchar(255) NOT NULL,
     `name` varchar(255) DEFAULT NULL,
