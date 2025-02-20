@@ -3,7 +3,6 @@
 -- DROP DATABASE example_products;
 -- CREATE DATABASE example_products;
 --
---
 
 -- DROP TABLE IF EXISTS `products_attributes_table`;
 
