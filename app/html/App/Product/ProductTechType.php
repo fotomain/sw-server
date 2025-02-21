@@ -19,7 +19,8 @@ class ProductTechType extends ProductAbstructType
 //        $args = new stdClass();
 //        $args->name=Types::string();
         $args = array();
-        $args = [...$args,'name'=>Types::string()] ;
+//        $args = [...$args,'where'=>Types::string()] ;
+        $args = [...$args,'where'=>Types::string()] ;
         return $args;
     }
 }
