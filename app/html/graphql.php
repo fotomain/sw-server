@@ -32,6 +32,8 @@ $query = $input['query'];
 $variables = isset($input['variables']) ? $input['variables'] : null;
 //$variables = isset($input['variables']) ? json_decode($input['variables'], true) : null;
 
+//    echo json_encode($variables);
+
 $schema = new Schema([
     'query'=>Types::query(),
     'mutation'=>Types::mutation()

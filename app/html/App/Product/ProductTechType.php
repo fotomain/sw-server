@@ -6,11 +6,13 @@ use stdClass;
 
 class ProductTechType extends ProductAbstructType
 {
-    public function __construct()
+    public function __construct($params=array())
     {
-        $aa = new stdClass();
-        $aa->categoryId = 'tech';
-        parent::__construct($aa);
+
+        $init = new stdClass();
+        $init->categoryId = 'tech';
+        parent::__construct($init);
+
     }
 }
 

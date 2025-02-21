@@ -12,6 +12,9 @@ abstract class ProductAbstructType extends ObjectType
 
     public function __construct($params=array())
     {
+        echo "\n ======= params";
+        echo json_encode($params);
+
         $this->categorySuffix = ' WHERE 1=1 ';
         if(is_object($params)){
             if(property_exists($params,'categoryId')){

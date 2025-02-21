@@ -6,10 +6,13 @@ use stdClass;
 
 class ProductType extends ProductAbstructType
 {
-    public function __construct()
+
+        public function __construct($params=array())
     {
-        $aa = new stdClass();
-        $aa->filters = '';
-        parent::__construct($aa);
+
+        echo json_encode($params);
+        $init = new stdClass();
+        parent::__construct($init);
+
     }
 }
