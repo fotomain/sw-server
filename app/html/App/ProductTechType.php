@@ -16,10 +16,9 @@ class ProductTechType extends ProductType
     public function __construct()
     {
         $aa = new stdClass();
-        $aa->category = 'tech';
-        $aa->textSqlSelectSuffix = "WHERE category='tech' ";
+        $aa->categoryId = 'tech';
         $this->parameters = $aa;
-        parent::__construct();
+        parent::__construct($aa);
     }
 
     public function parameters(): stdClass {

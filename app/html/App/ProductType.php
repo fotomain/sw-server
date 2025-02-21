@@ -6,8 +6,20 @@ use GraphQL\Type\Definition\ObjectType;
 
 class ProductType extends ObjectType
 {
-    public function __construct()
+    private $categorySuffix;
+
+    public function __construct($params=array())
     {
+        $this->categorySuffix = ' WHERE 1=1 ';
+        if(is_object($params)){
+            if(property_exists($params,'categoryId')){
+            $this->categorySuffix = $this->categorySuffix
+                ." AND category = '{$params->categoryId}' ";
+        }}
+
+//        echo "\n categorySuffix1 ";
+//        echo $this->categorySuffix;
+
         $config=[
             'description'=>'Product object',
             'fields'=>function () {
@@ -38,7 +50,7 @@ class ProductType extends ObjectType
                             return DB::select("
                                 SELECT DISTINCT aa.attributeSetId as id , productId as productId 
                                 FROM products_attributes_register AS aa
-                                WHERE aa.productId = '{$root->id}'
+                                WHERE aa.productId = '{$root->id} '
                             ");
 
 //                            SELECT aa.attributeSetId as id, aa.attributeOptionId as name
@@ -52,6 +64,15 @@ class ProductType extends ObjectType
         ];
 
         parent::__construct($config);
+    }
+
+    public function getSqlTextSELECT(){
+
+        $ret = "SELECT * FROM products_table ".$this->categorySuffix;
+//        echo "\n === getSqlTextSELECT";
+//        echo $ret;
+        return $ret;
+
     }
 }
 

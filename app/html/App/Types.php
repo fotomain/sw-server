@@ -6,6 +6,7 @@ use App\Type\InputProductType;
 use App\Type\MutationType;
 use App\Type\QueryType;
 use GraphQL\Type\Definition\Type;
+use stdClass;
 
 class Types
 {

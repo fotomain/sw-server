@@ -4,6 +4,7 @@ namespace App\Type;
 
 use App\DB;
 use App\ProductTechType;
+use App\ProductType;
 use App\Types;
 use GraphQL\Type\Definition\ObjectType;
 
@@ -33,7 +34,8 @@ class QueryType extends ObjectType
                         'type'=>Types::listOf(Types::product()),
                         'description'=> 'return List of Products',
                         'resolve'=> function ($root, $args) {
-                            return DB::select("SELECT * FROM products_table");
+                            $handler = new ProductType();
+                            return DB::select($handler->getSqlTextSELECT());
                         }
                     ],
                     'techProducts'=> [
@@ -41,8 +43,11 @@ class QueryType extends ObjectType
                         'description'=> 'return List of Tech Products',
                         'resolve'=> function ($root, $args) {
                             $handler = new ProductTechType();
-                            $parameters = $handler->parameters();
-                            return DB::select("SELECT * FROM products_table ".$parameters->textSqlSelectSuffix);
+                            return DB::select($handler->getSqlTextSELECT());
+
+//                            $parameters = $handler->parameters();
+//                            return DB::select("SELECT * FROM products_table ".$parameters->textSqlSelectSuffix);
+
                         }
                     ],
                 ]; //return fields
