@@ -2,11 +2,13 @@
 
 namespace App;
 
+use App\Product\ProductClothesType;
+use App\Product\ProductTechType;
+use App\Product\ProductType;
 use App\Type\InputProductType;
 use App\Type\MutationType;
 use App\Type\QueryType;
 use GraphQL\Type\Definition\Type;
-use stdClass;
 
 class Types
 {

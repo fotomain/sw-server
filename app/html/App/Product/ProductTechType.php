@@ -1,11 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Product;
 
-use GraphQL\Type\Definition\ObjectType;
 use stdClass;
 
-class ProductTechType extends ProductType
+class ProductTechType extends ProductAbstructType
 {
     public function __construct()
     {

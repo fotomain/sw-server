@@ -1,10 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Product;
 
+use App\DB;
+use App\Types;
 use GraphQL\Type\Definition\ObjectType;
 
-class ProductType extends ObjectType
+abstract class ProductAbstructType extends ObjectType
 {
     private $categorySuffix;
 

@@ -3,9 +3,9 @@
 namespace App\Type;
 
 use App\DB;
-use App\ProductClothesType;
-use App\ProductTechType;
-use App\ProductType;
+use App\Product\ProductClothesType;
+use App\Product\ProductTechType;
+use App\Product\ProductType;
 use App\Types;
 use GraphQL\Type\Definition\ObjectType;
 
