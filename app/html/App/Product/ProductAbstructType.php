@@ -68,9 +68,10 @@ abstract class ProductAbstructType extends ObjectType
         parent::__construct($config);
     }
 
-    public function getSqlTextSELECT(){
+    public function getSqlTextSELECT($params){
 
-        $ret = "SELECT * FROM products_table ".$this->categorySuffix;
+//        $ret = "SELECT * FROM products_table ".$this->categorySuffix;
+        $ret = "SELECT * FROM products_table ".$this->categorySuffix." AND name = '{$params['name']}' ";
 //        echo "\n === getSqlTextSELECT";
 //        echo $ret;
         return $ret;
