@@ -53,9 +53,6 @@ class ProductType extends ObjectType
                                 WHERE aa.productId = '{$root->id} '
                             ");
 
-//                            SELECT aa.attributeSetId as id, aa.attributeOptionId as name
-//                                FROM products_attributes_register AS aa
-//                                WHERE aa.productId = '{$root->id}'
 
                         }
                     ]

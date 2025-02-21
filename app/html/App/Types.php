@@ -25,6 +25,10 @@ class Types
     {
         return self::$product?:(self::$product=new ProductTechType());
     }
+    public static function productClothes()
+    {
+        return self::$product?:(self::$product=new ProductClothesType());
+    }
     public static function attribute()
     {
         return self::$attribute?:(self::$attribute=new AttributeType());

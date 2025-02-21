@@ -3,6 +3,7 @@
 namespace App\Type;
 
 use App\DB;
+use App\ProductClothesType;
 use App\ProductTechType;
 use App\ProductType;
 use App\Types;
@@ -44,10 +45,14 @@ class QueryType extends ObjectType
                         'resolve'=> function ($root, $args) {
                             $handler = new ProductTechType();
                             return DB::select($handler->getSqlTextSELECT());
-
-//                            $parameters = $handler->parameters();
-//                            return DB::select("SELECT * FROM products_table ".$parameters->textSqlSelectSuffix);
-
+                        }
+                    ],
+                    'clothesProducts'=> [
+                        'type'=>Types::listOf(Types::productClothes()),
+                        'description'=> 'return List of Clothes Products',
+                        'resolve'=> function ($root, $args) {
+                            $handler = new ProductClothesType();
+                            return DB::select($handler->getSqlTextSELECT());
                         }
                     ],
                 ]; //return fields

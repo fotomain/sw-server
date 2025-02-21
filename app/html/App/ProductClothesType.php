@@ -5,13 +5,16 @@ namespace App;
 use GraphQL\Type\Definition\ObjectType;
 use stdClass;
 
-class ProductTechType extends ProductType
+class ProductClothesType extends ProductType
 {
+    private $parameters;
+
     public function __construct()
     {
         $aa = new stdClass();
-        $aa->categoryId = 'tech';
+        $aa->categoryId = 'clothes';
         parent::__construct($aa);
     }
+
 }
 
