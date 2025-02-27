@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Product\KeyValueType;
 use App\Product\ProductClothesType;
 use App\Product\ProductTechType;
 use App\Product\ProductType;
@@ -16,9 +17,14 @@ class Types
     private static $query;
     private static $mutation;
     private static $product;
+    private static $keyvalue;
     private static $attribute;
     private static $inputProduct;
 
+    public static function keyvalue()
+    {
+        return self::$keyvalue?:(self::$keyvalue=new KeyValueType());
+    }
     public static function product()
     {
         return self::$product?:(self::$product=new ProductType());

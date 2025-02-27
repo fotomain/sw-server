@@ -31,3 +31,18 @@ https://php-quickstart-docker.onrender.com/graphql.php
         }
     }
 }
+
+
+{
+query: allProducts (where:"{\"name\":{ \"eq\": \"iMac 2021\" }, \"Color\":{ \"eq\": \"black\" }}") {
+id name
+        attributes {
+    id 
+            name
+                attributeOptions {
+        id
+                    name
+                } 
+        }
+    }
+}

@@ -4,7 +4,9 @@ namespace App\Product;
 
 use App\DB;
 use App\Types;
+use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\Type;
 
 
 abstract class ProductAbstructType extends ObjectType
@@ -16,8 +18,9 @@ abstract class ProductAbstructType extends ObjectType
     {
         $debug=false;
 
-        echo "\n ======= params";
+        echo "\n ======= params1";
         echo json_encode($params);
+        echo "\n ======= params2";
 
         $this->categorySuffix = ' WHERE 1=1 ';
         if(is_object($params)){
@@ -25,6 +28,7 @@ abstract class ProductAbstructType extends ObjectType
             $this->categorySuffix = $this->categorySuffix
                 ." AND category = '{$params->categoryId}' ";
         }}
+        echo "\n ======= params3";
 
 //        echo "\n categorySuffix1 ";
 //        echo $this->categorySuffix;
@@ -56,13 +60,14 @@ abstract class ProductAbstructType extends ObjectType
 //                            echo json_encode($root->id);
 
                             //cool1: select productId for next level of analytics
-                            $sql = "
-                                SELECT DISTINCT aa.attribute_id as id , hh.attribute_name as name, aa.entity_id as productId
+                            $sql = "SELECT DISTINCT aa.attribute_id as id , hh.attribute_name as name, aa.entity_id as productId
                                 FROM catalog_product_entity_text AS aa
                                 LEFT JOIN attribute_entity hh ON aa.attribute_id=hh.attribute_id
                                 WHERE aa.entity_id = '{$root->id}'
                              ";
+
                             if($this->debug) echo $sql;
+
                             return DB::select("
                                 $sql                                                              
                             ");
@@ -73,6 +78,7 @@ abstract class ProductAbstructType extends ObjectType
             },
         ];
 
+        echo "\n ======= params4";
         parent::__construct($config);
     }
 
@@ -83,24 +89,26 @@ abstract class ProductAbstructType extends ObjectType
         //      "{\"name\":{ \"eq\": \"iMac 2021\" }, \"Color\":{ \"eq\": \"black\" }}"
         // prepare tests json online https://jsonformatter.org/json-stringify-online
 
-        $where0 = $params['where'];
-        echo "\n === where0  ".$where0;
-        echo "\n === where0 gettype ".gettype($where0);
-        $where=json_decode($where0);
-        echo "\n === type of where ".gettype($where);
-
-            $array = get_object_vars($where);
-            $whereNames  = array_keys($array);
-            $whereValues = array_values($array);
-            for ( $i = 0; $i <sizeof($whereNames) ; $i++) {
-                echo "\n === whereNames ".json_encode($whereNames[$i]);
-                echo "\n === whereValuew ".json_encode($whereValues[$i]->eq);
-            }
-
-        $filters = json_encode($where,true);
-        echo "\n === obj1 ".$filters;
-        echo "\n === obj2 ".gettype($filters);
-
+        echo "\n === 111111  ";
+        echo json_encode($params);
+//        $where0 = $params['where'];
+//        echo "\n === where0  ".$where0;
+//        echo "\n === where0 gettype ".gettype($where0);
+//        $where=json_decode($where0);
+//        echo "\n === type of where ".gettype($where);
+//
+//            $array = get_object_vars($where);
+//            $whereNames  = array_keys($array);
+//            $whereValues = array_values($array);
+//            for ( $i = 0; $i <sizeof($whereNames) ; $i++) {
+//                echo "\n === whereNames ".json_encode($whereNames[$i]);
+//                echo "\n === whereValuew ".json_encode($whereValues[$i]->eq);
+//            }
+//
+//        $filters = json_encode($where,true);
+//        echo "\n === obj1 ".$filters;
+//        echo "\n === obj2 ".gettype($filters);
+//
 
         echo "\n === ";
 
@@ -108,15 +116,36 @@ abstract class ProductAbstructType extends ObjectType
 
         $ret = "SELECT product_id AS id, name AS name, 111.11 as price FROM product_entity "
             .$this->categorySuffix;
-//            ." A//ND name = '{$params['where']->name}' ";
 
-//        echo "\n === getSqlTextSELECT";
-//        echo $ret;
         return $ret;
 
     }
 
-    public static function getArgs(){
+    public static function getArgs2(){
+        $filters = new InputObjectType([
+            'name' => 'StoryFiltersInput',
+            'fields' => [
+                'author' => [
+                    'type' => Type::id(),
+                    'description' => 'Only show stories with this author id'
+                ],
+                'popular' => [
+                    'type' => Type::boolean(),
+                    'description' => 'Only show popular stories (liked by several people)'
+                ],
+                'tags' => [
+                    'type' => Type::listOf(Type::string()),
+                    'description' => 'Only show stories which contain all of those tags'
+                ]
+            ]
+        ]);
+        return $filters;
+    }
+
+        public static function getArgs(){
+
+//            where: "8888"
+
 //        $args = new stdClass();
 //        $args->name=Types::string();
         $args = array();
