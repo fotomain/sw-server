@@ -5,6 +5,8 @@ RUN Docker
         right Click on ocker-compose.yml
             menu -> run
 
+composer update
+
 RUN App
 http://localhost:8088/index.php
 http://localhost:8088/graphql.php

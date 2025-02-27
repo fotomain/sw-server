@@ -34,14 +34,19 @@ https://php-quickstart-docker.onrender.com/graphql.php
 
 
 {
-query: allProducts (where:"{\"name\":{ \"eq\": \"iMac 2021\" }, \"Color\":{ \"eq\": \"black\" }}") {
-id name
+    query: allProducts (
+        orderBy:"price ASC, name DESC",
+        filters: { product_id: "1", inStock: false , option_id_set:[111,222,333]}
+        )
+     { 
+        id name
         attributes {
-    id 
+            id 
             name
-                attributeOptions {
-        id
+                attributeOptions { 
+                    id
                     name
+                    displayValue
                 } 
         }
     }

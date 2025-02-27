@@ -19,6 +19,7 @@ class Types
     private static $product;
     private static $keyvalue;
     private static $attribute;
+    private static $attributeOption;
     private static $inputProduct;
 
     public static function keyvalue()
@@ -43,7 +44,7 @@ class Types
     }
     public static function attributeOption()
     {
-        return self::$product?:(self::$product=new AttributeOptionType());
+        return self::$attributeOption?:(self::$attributeOption=new AttributeOptionType());
     }
 
     public static function int()

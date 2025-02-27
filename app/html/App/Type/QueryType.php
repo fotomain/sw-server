@@ -36,11 +36,15 @@ class QueryType extends ObjectType
                         'description'=> 'return List of Products',
                         'args'=>[
                                 'filters' => [
-                                    'type' => ProductType::getArgs2(),
+                                    'type' => ProductType::getArgsFilters(),
                                     'defaultValue' => [
                                         'popular' => true
                                     ]
-                                ]
+                                ],
+                                'orderBy' => [
+                                'type' => Types::string(),
+                            ]
+
                         ],
                         'resolve'=> function ($root, $args) {
                             $handler = new ProductType();

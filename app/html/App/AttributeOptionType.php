@@ -19,6 +19,10 @@ class AttributeOptionType extends ObjectType
                     'name'=>[
                       'type'=> Types::string(),
                       'description'=> 'Attribute Option name',
+                    ],
+                    'displayValue'=>[
+                      'type'=> Types::string(),
+                      'description'=> 'Attribute Option display value',
                     ]
                 ];
             },

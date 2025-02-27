@@ -60,7 +60,10 @@ abstract class ProductAbstructType extends ObjectType
 //                            echo json_encode($root->id);
 
                             //cool1: select productId for next level of analytics
-                            $sql = "SELECT DISTINCT aa.attribute_id as id , hh.attribute_name as name, aa.entity_id as productId
+                            $sql = "SELECT DISTINCT 
+                                    aa.attribute_id as id , 
+                                    hh.attribute_name as name, 
+                                    aa.entity_id as productId
                                 FROM catalog_product_entity_text AS aa
                                 LEFT JOIN attribute_entity hh ON aa.attribute_id=hh.attribute_id
                                 WHERE aa.entity_id = '{$root->id}'
@@ -121,21 +124,33 @@ abstract class ProductAbstructType extends ObjectType
 
     }
 
-    public static function getArgs2(){
+    public static function getArgsFilters(){
         $filters = new InputObjectType([
             'name' => 'StoryFiltersInput',
             'fields' => [
-                'author' => [
+                'product_id' => [
                     'type' => Type::id(),
-                    'description' => 'Only show stories with this author id'
+                    'description' => 'product id filter'
                 ],
-                'popular' => [
+                'inStock' => [
                     'type' => Type::boolean(),
-                    'description' => 'Only show popular stories (liked by several people)'
+                    'description' => 'inStock filter'
                 ],
-                'tags' => [
-                    'type' => Type::listOf(Type::string()),
-                    'description' => 'Only show stories which contain all of those tags'
+                'product_name' => [
+                    'type' => Type::string(),
+                    'description' => 'product name filter'
+                ],
+                'price_from' => [
+                    'type' => Type::float(),
+                    'description' => 'price from filter'
+                ],
+                'price_to' => [
+                    'type' => Type::float(),
+                    'description' => 'price to filter'
+                ],
+                'option_id_set' => [
+                    'type' => Type::listOf(Type::int()),
+                    'description' => 'option id filter'
                 ]
             ]
         ]);

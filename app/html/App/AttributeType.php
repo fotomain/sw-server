@@ -30,11 +30,16 @@ class AttributeType extends ObjectType
 //                            echo "\n ===  ".json_encode($root);
 
                             //cool1: use productId from previous level of analytics
-                            return DB::select("
-                                SELECT ao.option_id as id , ao.value as name
+                            $sql = "
+                                SELECT 
+                                    ao.option_id as id ,                                      
+                                    ao.displayValue as displayValue,
+                                    ao.value as name                                    
                                 FROM attribute_options AS ao
                                 WHERE ao.attribute_id = {$root->id}                                       
-                            ");
+                            ";
+//                            echo $sql;
+                            return DB::select($sql);
 
                         }
                     ]
