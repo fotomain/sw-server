@@ -2,6 +2,7 @@
 
 namespace App\Product;
 
+use App\Types;
 use stdClass;
 
 class ProductType extends ProductAbstructType
@@ -15,4 +16,6 @@ class ProductType extends ProductAbstructType
         parent::__construct($init);
 
     }
+
+
 }

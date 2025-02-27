@@ -15,13 +15,7 @@ class ProductTechType extends ProductAbstructType
         parent::__construct($init);
 
     }
-    public static function getArgs(){
-//        $args = new stdClass();
-//        $args->name=Types::string();
-        $args = array();
-//        $args = [...$args,'where'=>Types::string()] ;
-        $args = [...$args,'where'=>Types::string()] ;
-        return $args;
-    }
+
+
 }
 

@@ -6,12 +6,16 @@ use App\DB;
 use App\Types;
 use GraphQL\Type\Definition\ObjectType;
 
+
 abstract class ProductAbstructType extends ObjectType
 {
     private $categorySuffix;
+    private $debug;
 
     public function __construct($params=array())
     {
+        $debug=false;
+
         echo "\n ======= params";
         echo json_encode($params);
 
@@ -52,12 +56,16 @@ abstract class ProductAbstructType extends ObjectType
 //                            echo json_encode($root->id);
 
                             //cool1: select productId for next level of analytics
+                            $sql = "
+                                SELECT DISTINCT aa.attribute_id as id , hh.attribute_name as name, aa.entity_id as productId
+                                FROM catalog_product_entity_text AS aa
+                                LEFT JOIN attribute_entity hh ON aa.attribute_id=hh.attribute_id
+                                WHERE aa.entity_id = '{$root->id}'
+                             ";
+                            if($this->debug) echo $sql;
                             return DB::select("
-                                SELECT DISTINCT aa.attributeSetId as id , productId as productId 
-                                FROM products_attributes_register AS aa
-                                WHERE aa.productId = '{$root->id} '
+                                $sql                                                              
                             ");
-
 
                         }
                     ]
@@ -72,7 +80,7 @@ abstract class ProductAbstructType extends ObjectType
     // how to pass params
         // js->JSON.stringify() => (where:"{\"name\":\"iMac 2021\"}
         //      "\"name\":[\"iMac 2021\",\"iMac 2022\"]"
-        //      "{\"name\":{ \"eq\": \"iMac 2021\" }, \"color\":{ \"eq\": \"black\" }}"
+        //      "{\"name\":{ \"eq\": \"iMac 2021\" }, \"Color\":{ \"eq\": \"black\" }}"
         // prepare tests json online https://jsonformatter.org/json-stringify-online
 
         $where0 = $params['where'];
@@ -98,7 +106,7 @@ abstract class ProductAbstructType extends ObjectType
 
 //        $ret = "SELECT * FROM products_table ".$this->categorySuffix;
 
-        $ret = "SELECT * FROM products_table "
+        $ret = "SELECT product_id AS id, name AS name, 111.11 as price FROM product_entity "
             .$this->categorySuffix;
 //            ." A//ND name = '{$params['where']->name}' ";
 
@@ -107,5 +115,16 @@ abstract class ProductAbstructType extends ObjectType
         return $ret;
 
     }
+
+    public static function getArgs(){
+//        $args = new stdClass();
+//        $args->name=Types::string();
+        $args = array();
+//        $args = [...$args,'where'=>Types::string()] ;
+        $args = [...$args,'where'=>Types::string()] ;
+        return $args;
+    }
+
+
 }
 

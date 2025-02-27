@@ -32,10 +32,9 @@ class AttributeType extends ObjectType
 
                             //cool1: use productId from previous level of analytics
                             return DB::select("
-                                SELECT DISTINCT aa.attributeOptionId as id , aa.attributeOptionId as name
-                                FROM products_attributes_register AS aa
-                                WHERE aa.attributeSetId = '{$root->id}'
-                                      AND aa.productId = '{$root->productId}' 
+                                SELECT ao.option_id as id , ao.value as name
+                                FROM attribute_options AS ao
+                                WHERE ao.attribute_id = {$root->id}                                       
                             ");
 
                         }

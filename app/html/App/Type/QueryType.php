@@ -34,9 +34,12 @@ class QueryType extends ObjectType
                     'allProducts'=> [
                         'type'=>Types::listOf(Types::product()),
                         'description'=> 'return List of Products',
+                        'args'=> ProductType::getArgs(),
                         'resolve'=> function ($root, $args) {
                             $handler = new ProductType();
-                            return DB::select($handler->getSqlTextSELECT());
+                            $sql = $handler->getSqlTextSELECT($args);
+                            echo $sql;
+                            return DB::select($sql);
                         }
                     ],
                     'techProducts'=> [
