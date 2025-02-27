@@ -3,6 +3,7 @@
 namespace App;
 
 use PDO;
+use stdClass;
 
 class DB
 {
@@ -24,7 +25,37 @@ class DB
 
     }
 
-    public static function select($query)
+    public static function selectAttribures($query)
+    {
+
+        $handler = self::$pdo->query("
+                SELECT attributeSetId, attributeOptionId 
+                FROM products_attributes_table 
+                ORDER BY attributeSetId, attributeOptionId
+        ");
+
+        $data = $handler->fetchAll(PDO::FETCH_COLUMN|PDO::FETCH_GROUP);
+
+        $result = [];
+        foreach ($data as $attributeSetId => $row)
+        {
+            //echo $attributeSetId."<br/>\n";
+            $items=[];
+            foreach ($row as $attributeOptionId)
+            {
+                //echo $attributeOptionId."<br/>\n";
+                $items.push($attributeOptionId);
+            }
+
+            $resObject = new stdClass();
+            $resObject->id=$attributeSetId;
+            $resObject->items=$items;
+
+            $result.push($resObject);
+        }
+        return $result;
+    }
+public static function select($query)
     {
         $handler = self::$pdo->query($query);
         return $handler->fetchAll();

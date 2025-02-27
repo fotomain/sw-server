@@ -14,7 +14,7 @@ class InputProductType extends InputObjectType
             'fields' => function(){
                 return[
                     'id'=>[
-                        'type'=>Types::nonNull(Types::int()),
+                        'type'=>Types::nonNull(Types::string()),
                         'description'=>'Product id',
                     ],
                     'name'=>[
