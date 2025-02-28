@@ -16,8 +16,6 @@ CHECK Docker local
 https://midnightblue-newt-595842.hostingersite.com/app1/html/index.php
 https://midnightblue-newt-595842.hostingersite.com/app1/html/graphql.php
 
-
-
 # GLOBAL PHP
 push git main
 rebuild Docker global on render.com
@@ -28,6 +26,21 @@ RUN App
     http://localhost:8088/index.php
     http://localhost:8088/graphql.php
     https://php-quickstart-docker.onrender.com/graphql.php
+
+
+# CORS PHP
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+header('Content-Type: application/json');
+$method = $_SERVER['REQUEST_METHOD'];
+if ($method == "OPTIONS") {
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+header("HTTP/1.1 200 OK");
+die();
+}
+
 
 git init
 git remote add origin https://github.com/fotomain/php-quickstart-docker.git
