@@ -1,16 +1,20 @@
 # sw-server
 
+composer update
+
 RUN Docker
     from PHPStorm
         right Click on ocker-compose.yml
             menu -> run
-
-composer update
+CHECK Docker local
+    http://localhost:8088/index.php
+CHECK Docker global
+    https://php-quickstart-docker.onrender.com/graphql.php
 
 RUN App
-http://localhost:8088/index.php
-http://localhost:8088/graphql.php
-https://php-quickstart-docker.onrender.com/graphql.php
+    http://localhost:8088/index.php
+    http://localhost:8088/graphql.php
+    https://php-quickstart-docker.onrender.com/graphql.php
 
 git init
 git remote add origin https://github.com/fotomain/php-quickstart-docker.git
