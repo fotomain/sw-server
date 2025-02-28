@@ -3,13 +3,15 @@
 
 echo "Hi 555";
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Methods: HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+header('Content-Type: application/json');
+$method = $_SERVER['REQUEST_METHOD'];
+if ($method == "OPTIONS") {
     header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
-    header('Access-Control-Allow-Headers: token, Content-Type');
-    header('Access-Control-Max-Age: 1728000');
-    header('Content-Length: 0');
-    header('Content-Type: text/plain');
+    header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization");
+    header("HTTP/1.1 200 OK");
     die();
 }
 
