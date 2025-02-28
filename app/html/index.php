@@ -1,6 +1,5 @@
 <?php
 
-
 echo "Hi 555";
 
 //header('Access-Control-Allow-Origin: *');
