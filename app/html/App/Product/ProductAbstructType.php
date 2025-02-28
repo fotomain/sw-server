@@ -18,9 +18,11 @@ abstract class ProductAbstructType extends ObjectType
     {
         $debug=false;
 
-        echo "\n ======= params1";
-        echo json_encode($params);
-        echo "\n ======= params2";
+        if($debug) {
+            echo "\n ======= params1";
+            echo json_encode($params);
+            echo "\n ======= params2";
+        }
 
         $this->categorySuffix = ' WHERE 1=1 ';
         if(is_object($params)){
@@ -28,10 +30,11 @@ abstract class ProductAbstructType extends ObjectType
             $this->categorySuffix = $this->categorySuffix
                 ." AND category = '{$params->categoryId}' ";
         }}
-        echo "\n ======= params3";
 
-//        echo "\n categorySuffix1 ";
-//        echo $this->categorySuffix;
+        if($debug) {
+            echo "\n ======= params3";
+        }
+
 
         $config=[
             'description'=>'Product object',
@@ -69,7 +72,10 @@ abstract class ProductAbstructType extends ObjectType
                                 WHERE aa.entity_id = '{$root->id}'
                              ";
 
-                            if($this->debug) echo $sql;
+                            if($this->debug) {
+//                                echo "/n === sql attributes1";
+//                                echo $sql;
+                            }
 
                             return DB::select("
                                 $sql                                                              
@@ -81,41 +87,21 @@ abstract class ProductAbstructType extends ObjectType
             },
         ];
 
-        echo "\n ======= params4";
+        if($debug) {
+            echo "\n ======= params4";
+        }
+
         parent::__construct($config);
     }
 
     public function getSqlTextSELECT($params){
     // how to pass params
-        // js->JSON.stringify() => (where:"{\"name\":\"iMac 2021\"}
-        //      "\"name\":[\"iMac 2021\",\"iMac 2022\"]"
-        //      "{\"name\":{ \"eq\": \"iMac 2021\" }, \"Color\":{ \"eq\": \"black\" }}"
-        // prepare tests json online https://jsonformatter.org/json-stringify-online
 
-        echo "\n === 111111  ";
-        echo json_encode($params);
-//        $where0 = $params['where'];
-//        echo "\n === where0  ".$where0;
-//        echo "\n === where0 gettype ".gettype($where0);
-//        $where=json_decode($where0);
-//        echo "\n === type of where ".gettype($where);
-//
-//            $array = get_object_vars($where);
-//            $whereNames  = array_keys($array);
-//            $whereValues = array_values($array);
-//            for ( $i = 0; $i <sizeof($whereNames) ; $i++) {
-//                echo "\n === whereNames ".json_encode($whereNames[$i]);
-//                echo "\n === whereValuew ".json_encode($whereValues[$i]->eq);
-//            }
-//
-//        $filters = json_encode($where,true);
-//        echo "\n === obj1 ".$filters;
-//        echo "\n === obj2 ".gettype($filters);
-//
-
-        echo "\n === ";
-
-//        $ret = "SELECT * FROM products_table ".$this->categorySuffix;
+        $debug=false;
+        if($debug) {
+            echo "\n === getSqlTextSELECT1  ";
+            echo json_encode($params);
+        }
 
         $ret = "SELECT product_id AS id, name AS name, 111.11 as price FROM product_entity "
             .$this->categorySuffix;

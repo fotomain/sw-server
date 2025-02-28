@@ -11,8 +11,10 @@ use GraphQL\Type\Definition\ObjectType;
 
 class QueryType extends ObjectType
 {
+
     public function __construct()
     {
+
         $config=[
             'fields'=>function() {
                 return [
@@ -49,7 +51,12 @@ class QueryType extends ObjectType
                         'resolve'=> function ($root, $args) {
                             $handler = new ProductType();
                             $sql = $handler->getSqlTextSELECT($args);
-                            echo $sql;
+                            $debug=false;
+                                if($debug) {
+                                    echo "\n === sql getSqlTextSELECT";
+                                    echo "\n";
+                                    echo $sql;
+                                }
                             return DB::select($sql);
                         }
                     ],

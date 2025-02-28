@@ -8,8 +8,9 @@ RUN Docker
             menu -> run
 CHECK Docker local
     http://localhost:8088/index.php
-CHECK Docker global
-    https://php-quickstart-docker.onrender.com/graphql.php
+TEST Docker global
+    run chrome NO CORS
+    https://sw-server-przw.onrender.com/graphql.php
 
 RUN App
     http://localhost:8088/index.php

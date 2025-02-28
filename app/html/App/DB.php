@@ -88,7 +88,7 @@ public static function select($query)
                     'message' => $e->getMessage()
                 ]
             ];
-            echo json_encode($result1);
+            echo "ERROR 112 ".json_encode($result1);
         }
     }
 
