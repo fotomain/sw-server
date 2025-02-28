@@ -33,7 +33,6 @@ try {
         'database'  =>'u235058084_sw_database'
     ];
 
-//echo 'init0';
 DB::init($config);
 
 $rawInput = file_get_contents('php://input');
