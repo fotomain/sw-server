@@ -2,14 +2,20 @@
 
 composer update
 
-RUN Docker
+# LOCAL
+RUN Docker local
     from PHPStorm
         right Click on ocker-compose.yml
             menu -> run
+
+run chrome NO CORS
 CHECK Docker local
     http://localhost:8088/index.php
-TEST Docker global
-    run chrome NO CORS
+
+# GLOBAL PHP
+push git main
+rebuild Docker global on render.com
+TEST Docker global PHP SERVER
     https://sw-server-przw.onrender.com/graphql.php
 
 RUN App

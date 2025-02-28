@@ -87,6 +87,10 @@ RUN docker-php-ext-install pdo pdo_mysql \
 # Install Apache modules
 ############################################################################
 RUN a2enmod rewrite
+RUN a2enmod headers
+
+RUN sed -ri -e 's/^([ \t]*)(<\/VirtualHost>)/\1\tHeader set Access-Control-Allow-Origin "*"\n\1\2/g' /etc/apache2/sites-available/*.conf
+
 
 ############################################################################
 # Copy production ini file

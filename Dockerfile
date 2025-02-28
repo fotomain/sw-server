@@ -15,3 +15,9 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Enable mod_rewrite for Apache (optional, useful for many PHP applications)
 RUN a2enmod rewrite
+
+RUN a2enmod headers
+
+RUN sed -ri -e 's/^([ \t]*)(<\/VirtualHost>)/\1\tHeader set Access-Control-Allow-Origin "*"\n\1\2/g' /etc/apache2/sites-available/*.conf
+
+
