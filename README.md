@@ -12,9 +12,11 @@ run chrome NO CORS
 CHECK Docker local
     http://localhost:8088/index.php
 
-# GLOBAL PHP 
-https://midnightblue-newt-595842.hostingersite.com/app1/html/index.php
-https://midnightblue-newt-595842.hostingersite.com/app1/html/graphql.php
+# GLOBAL DOCKER
+    https://sw-server-przw.onrender.com/graphql.php
+# GLOBAL PHP
+    https://midnightblue-newt-595842.hostingersite.com/app1/html/index.php
+    https://midnightblue-newt-595842.hostingersite.com/app1/html/graphql.php
 
 # GLOBAL PHP
 push git main
