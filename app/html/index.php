@@ -1,5 +1,10 @@
 <?php
-//echo "Hi 555";
+
+header("Access-Control-Allow-Headers: Authorization, Content-Type");
+header("Access-Control-Allow-Origin: *");
+header('content-type: application/json; charset=utf-8');
+
+echo "Hi 555";
 
 //if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 //    header('Access-Control-Allow-Origin: *');
