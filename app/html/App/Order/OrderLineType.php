@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Order;
 
+use App\Types;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ObjectType;
 
@@ -13,7 +14,7 @@ class OrderLineType extends ObjectType
             'description'=>'Order Line Type',
             'fields'=>function (){
                 return[
-                    'line_id'=>[
+                    'order_line_id'=>[
                       'type'=> Types::int(),
                       'description'=> 'Order Line identifier',
                     ],

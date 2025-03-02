@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Order\OrderLineType;
 use App\Order\OrderType;
 
 use App\Product\KeyValueType;
@@ -38,6 +39,10 @@ class Types
     public static function order()
     {
         return self::$order?:(self::$order=new OrderType());
+    }
+    public static function orderLine()
+    {
+        return self::$orderLine?:(self::$orderLine=new OrderLineType());
     }
     public static function productTech()
     {

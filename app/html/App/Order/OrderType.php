@@ -45,23 +45,23 @@ class OrderType extends ObjectType
                       'type'=> Types::string(),
                       'description'=> 'comment ',
                   ],
-//                    'order_lines' => [
-//                        'type' => Types::listOf(Types::orderLine()),
-//                        'resolve'=>function ($root, $args){
-//
-//                            $sql = "SELECT *
-//                                        FROM order_lines
-//                             ;";
-//
-////                            echo  "999";
-//
-//                            return DB::select("
-//                                $sql
-//                            ");
-//
-////                            return null; //["id"=>"fff","name"=>"fff"];
-//                        }
-//                    ],
+                    'order_lines' => [
+                        'type' => Types::listOf(Types::orderLine()),
+                        'resolve'=>function ($root, $args){
+
+                            $sql = "SELECT *
+                                        FROM order_lines
+                             ;";
+
+//                            echo  "999";
+
+                            return DB::select("
+                                $sql
+                            ");
+
+//                            return null; //["id"=>"fff","name"=>"fff"];
+                        }
+                    ],
 
                 ];
             },
