@@ -1,6 +1,6 @@
 ## Lists
 
-**graphql-php** provides built-in support for lists. In order to create list type - wrap
+**graphql-php** provides built-in support for lists. In cart to create list type - wrap
 existing type with `GraphQL\Type\Definition\Type::listOf()` modifier:
 
 ```php

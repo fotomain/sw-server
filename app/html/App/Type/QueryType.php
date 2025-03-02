@@ -33,13 +33,13 @@ class QueryType extends ObjectType
                             return DB::selectOne("SELECT * FROM products_table WHERE id = '{$args['id']}'");
                         }
                     ],
-                    'allOrders'=> [
-                        'type'=>Types::order(),
+                    'allCarts'=> [
+                        'type'=>Types::cart(),
                         'resolve'=> function ($root, $args) {
 
-                            $ret = DB::selectOne("SELECT * FROM order_header;");
+                            $ret = DB::selectOne("SELECT * FROM cart_header;");
 
-                            echo "=== allOrders";
+                            echo "=== allCarts";
                             echo json_encode($ret);
 
                             return 222;
@@ -56,7 +56,7 @@ class QueryType extends ObjectType
                                         'popular' => true
                                     ]
                                 ],
-                                'orderBy' => [
+                                'cartBy' => [
                                 'type' => Types::string(),
                             ]
 

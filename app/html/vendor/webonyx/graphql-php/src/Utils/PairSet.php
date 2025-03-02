@@ -3,7 +3,7 @@
 namespace GraphQL\Utils;
 
 /**
- * A way to keep track of pairs of things when the ordering of the pair does
+ * A way to keep track of pairs of things when the carting of the pair does
  * not matter. We do this by maintaining a sort of double adjacency sets.
  */
 class PairSet

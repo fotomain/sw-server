@@ -1,0 +1,17 @@
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (801, 80001, '40', '40', '40');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (801, 80002, '41', '41', '41');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (801, 80003, '42', '42', '42');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (801, 80004, '43', '43', '43');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (802, 80005, '#44FF03', 'Green', 'Green');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (802, 80006, '#03FFF7', 'Cyan', 'Cyan');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (802, 80007, '#030BFF', 'Blue', 'Blue');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (802, 80008, '#000000', 'Black', 'Black');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (802, 80009, '#FFFFFF', 'White', 'White');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (803, 80010, '512GB', '512GB', '512GB');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (803, 80011, '1T', '1T', '1T');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (804, 80012, 'Yes', 'Yes', 'Yes');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (804, 80013, 'No', 'No', 'No');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (805, 80014, 'Yes', 'Yes', 'Yes');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (805, 80015, 'No', 'No', 'No');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (806, 80016, 'iOS12', 'iOS 12', 'Operational system');
+INSERT INTO u235058084_sw_database.attribute_options (attribute_id, option_id, value, displayValue, id) VALUES (806, 80017, 'iOS16', 'iOS 16', 'Operational system');

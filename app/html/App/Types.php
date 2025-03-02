@@ -2,14 +2,15 @@
 
 namespace App;
 
-use App\Order\OrderLineType;
-use App\Order\OrderType;
+use App\Cart\CartLineType;
+use App\Cart\CartType;
 
 use App\Product\KeyValueType;
 use App\Product\ProductClothesType;
 use App\Product\ProductTechType;
 use App\Product\ProductType;
-use App\Type\InputOrderType;
+
+use App\Type\InputCartType;
 use App\Type\InputProductType;
 use App\Type\MutationType;
 use App\Type\QueryType;
@@ -21,14 +22,14 @@ class Types
     private static $query;
     private static $mutation;
     private static $product;
-    private static $order;
-    private static $orderLine;
+    private static $cart;
+    private static $cartLine;
 
     private static $keyvalue;
     private static $attribute;
     private static $attributeOption;
     private static $inputProduct;
-    private static $inputOrder;
+    private static $inputCart;
 
     public static function keyvalue()
     {
@@ -38,13 +39,13 @@ class Types
     {
         return self::$product?:(self::$product=new ProductType());
     }
-    public static function order()
+    public static function cart()
     {
-        return self::$order?:(self::$order=new OrderType());
+        return self::$cart?:(self::$cart=new CartType());
     }
-    public static function orderLine()
+    public static function cartLine()
     {
-        return self::$orderLine?:(self::$orderLine=new OrderLineType());
+        return self::$cartLine?:(self::$cartLine=new CartLineType());
     }
     public static function productTech()
     {
@@ -103,9 +104,9 @@ class Types
         return self::$inputProduct ?: (self::$inputProduct = new InputProductType());
     }
 
-    public static function inputOrder()
+    public static function inputCart()
     {
-        return self::$inputOrder ?: (self::$inputOrder = new InputOrderType());
+        return self::$inputCart ?: (self::$inputCart = new InputCartType());
     }
 }
 

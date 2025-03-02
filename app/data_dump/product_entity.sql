@@ -1,0 +1,10 @@
+INSERT INTO u235058084_sw_database.product_entity (product_id, sku, inStock, has_options, name) VALUES (101, '101', 1, 1, 'Nike Air Huarache Le');
+INSERT INTO u235058084_sw_database.product_entity (product_id, sku, inStock, has_options, name) VALUES (102, '102', 1, 1, 'Jacket');
+INSERT INTO u235058084_sw_database.product_entity (product_id, sku, inStock, has_options, name) VALUES (103, '103', 1, 1, 'PlayStation 5');
+INSERT INTO u235058084_sw_database.product_entity (product_id, sku, inStock, has_options, name) VALUES (104, '104', 1, 1, 'Xbox Series S 512GB');
+INSERT INTO u235058084_sw_database.product_entity (product_id, sku, inStock, has_options, name) VALUES (105, '105', 1, 1, 'iMac 2021');
+INSERT INTO u235058084_sw_database.product_entity (product_id, sku, inStock, has_options, name) VALUES (106, '106', 1, 1, 'iPhone 12 Pro');
+INSERT INTO u235058084_sw_database.product_entity (product_id, sku, inStock, has_options, name) VALUES (107, '107', 1, 0, 'AirPods Pro');
+INSERT INTO u235058084_sw_database.product_entity (product_id, sku, inStock, has_options, name) VALUES (108, '108', 1, 0, 'AirTag');
+INSERT INTO u235058084_sw_database.product_entity (product_id, sku, inStock, has_options, name) VALUES (109, '109', 1, 1, 'iPhone');
+INSERT INTO u235058084_sw_database.product_entity (product_id, sku, inStock, has_options, name) VALUES (110, '110', 1, 1, 'Samsung');

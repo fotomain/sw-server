@@ -35,7 +35,7 @@ https://php-quickstart-docker.onrender.com/graphql.php
 
 {
     query: allProducts (
-        orderBy:"price ASC, name DESC",
+        cartBy:"price ASC, name DESC",
         filters: { product_id: "1", inStock: false , option_id_set:[111,222,333]}
         )
      { 
@@ -52,8 +52,8 @@ https://php-quickstart-docker.onrender.com/graphql.php
     }
 }
 
-mutation ($newOrder:InputOrder) {
-        createOrder(order:$newOrder){
+mutation ($newCart:InputCart) {
+        createCart(cart:$newCart){
             product_id
             product_total 
         }

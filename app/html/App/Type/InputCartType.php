@@ -5,7 +5,7 @@ namespace App\Type;
 use App\Types;
 use GraphQL\Type\Definition\InputObjectType;
 
-class InputOrderType extends InputObjectType
+class InputCartType extends InputObjectType
 {
     public function __construct()
     {
@@ -13,13 +13,13 @@ class InputOrderType extends InputObjectType
             'description'=>'create new Product',
             'fields' => function(){
                 return[
-                    'order_total'=>[
+                    'cart_total'=>[
                         'type'=>Types::nonNull(Types::float()),
-                        'description'=>'Order total',
+                        'description'=>'Cart total',
                     ],
                     'comment'=>[
                         'type'=>Types::nonNull(Types::string()),
-                        'description'=>'Order comment',
+                        'description'=>'Cart comment',
                     ]
                 ];
             }

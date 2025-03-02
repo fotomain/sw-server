@@ -178,7 +178,7 @@ class OverlappingFieldsCanBeMerged extends ValidationRule
      * Conflicts occur when two fields exist in a query which will produce the same
      * response name, but represent differing values, thus creating a conflict.
      * The algorithm below finds all conflicts via making a series of comparisons
-     * between fields. In order to compare as few fields as possible, this makes
+     * between fields. In cart to compare as few fields as possible, this makes
      * a series of comparisons "within" sets of fields and "between" sets of fields.
      *
      * Given any selection set, a collection produces both a set of fields by

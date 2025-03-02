@@ -2696,7 +2696,7 @@ static function concatAST(array $documents): GraphQL\Language\AST\DocumentNode
 
 Prints the contents of a Schema in schema definition language.
 
-All sorting options sort alphabetically. If not given or `false`, the original schema definition order will be used.
+All sorting options sort alphabetically. If not given or `false`, the original schema definition cart will be used.
 
 @phpstan-type Options array{
 sortArguments?: bool,

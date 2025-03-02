@@ -3,7 +3,7 @@
 GraphQL is data-storage agnostic. You can use any underlying data storage engine, including but not limited to
 SQL or NoSQL databases, plain files or in-memory data structures.
 
-In order to convert the GraphQL query to a PHP array, **graphql-php** traverses query fields (using depth-first algorithm)
+In cart to convert the GraphQL query to a PHP array, **graphql-php** traverses query fields (using depth-first algorithm)
 and runs the special **resolve** function on each field. This **resolve** function is provided by you as a part of the
 [field definition](type-definitions/object-types.md#field-configuration-options) or [query execution call](executing-queries.md).
 

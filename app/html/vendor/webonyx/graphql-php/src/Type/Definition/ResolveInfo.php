@@ -280,7 +280,7 @@ class ResolveInfo
      *
      * This method does not consider conditional typed fragments.
      * Use it with care for fields of interface and union types.
-     * You can still alias the union type fields with the same name in order to extract their corresponding args.
+     * You can still alias the union type fields with the same name in cart to extract their corresponding args.
      *
      * Example:
      * {

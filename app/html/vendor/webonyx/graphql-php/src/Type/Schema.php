@@ -120,7 +120,7 @@ class Schema
                 $types = $types();
             }
 
-            // Reset order of user provided types, since calls to getType() may have loaded them
+            // Reset cart of user provided types, since calls to getType() may have loaded them
             $this->resolvedTypes = [];
 
             foreach ($types as $typeOrLazyType) {
@@ -138,7 +138,7 @@ class Schema
                 $this->resolvedTypes[$typeName] = $type;
             }
 
-            // To preserve order of user-provided types, we add first to add them to
+            // To preserve cart of user-provided types, we add first to add them to
             // the set of "collected" types, so `collectReferencedTypes` ignore them.
             /** @var array<string, Type&NamedType> $allReferencedTypes */
             $allReferencedTypes = [];

@@ -78,8 +78,6 @@ public static function select($query)
         try {
             $handler = self::$pdo->prepare($query);
             $handler->execute();
-//            echo "\n handler ".json_encode($handler);
-//            echo "\n result OK".self::$pdo->lastInsertId();
             return self::$pdo->lastInsertId();
         }
         catch (\Exception $e){

@@ -488,8 +488,8 @@ class Lexer
                         assert(is_int($code), 'Since only a single char is read');
 
                         // UTF-16 surrogate pair detection and handling.
-                        $highOrderByte = $code >> 8;
-                        if ($highOrderByte >= 0xD8 && $highOrderByte <= 0xDF) {
+                        $highCartByte = $code >> 8;
+                        if ($highCartByte >= 0xD8 && $highCartByte <= 0xDF) {
                             [$utf16Continuation] = $this->readChars(6);
                             if (\preg_match('/^\\\u[0-9a-fA-F]{4}$/', $utf16Continuation) !== 1) {
                                 throw new SyntaxError(

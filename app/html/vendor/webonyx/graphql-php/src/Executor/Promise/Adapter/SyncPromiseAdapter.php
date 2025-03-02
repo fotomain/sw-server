@@ -9,7 +9,7 @@ use GraphQL\Executor\Promise\PromiseAdapter;
 use GraphQL\Utils\Utils;
 
 /**
- * Allows changing order of field resolution even in sync environments
+ * Allows changing cart of field resolution even in sync environments
  * (by leveraging queue of deferreds and promises).
  */
 class SyncPromiseAdapter implements PromiseAdapter

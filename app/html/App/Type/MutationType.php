@@ -3,7 +3,7 @@
 namespace App\Type;
 
 use App\DB;
-use App\Order\OrderType;
+use App\Cart\CartType;
 use App\Types;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -15,16 +15,29 @@ class MutationType extends ObjectType
         //echo " __construct1";
         $config=[
             'fields'=>function () {
+//                aaaaacca-92d4-42fe-a455-383d139a45ca
                 return [
-                    'createOrder'=> [
-                        'type'=>Types::order(),
-                        'description'=>"create 1 order",
+                    'updateCart'=> [
+                        'type'=>Types::cart(),
+                        'description'=>"create 1 cart",
                         'args' => [
-                            'order'=>Types::inputOrder()
+                            'updateCartData'=>Types::inputCart()
                         ],
                         'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
-                              echo "\n === createOrder1 ";
-                              $ret = DB::selectOne("SELECT * FROM order_header WHERE order_id = 1; ");
+                              echo "\n === updateCart ";
+                              echo "\n === args ";
+                              echo json_encode($args);
+                              echo "\n =========== ";
+
+                            $lastIndex = DB::create("INSERT INTO cart_header (cart_guid, total_sum) VALUES( UUID(), '22222'); ");
+                                echo "\n =========== lastIndex";
+                                echo $lastIndex;
+                                echo "\n =========== ";
+
+                                $sqlRet="SELECT * FROM cart_header WHERE cart_id = ".$lastIndex."; ";
+                                echo "\n =========== sqlRet".$sqlRet;
+
+                              $ret = DB::selectOne($sqlRet);
 //                              echo json_encode($ret);
 
                             return $ret;

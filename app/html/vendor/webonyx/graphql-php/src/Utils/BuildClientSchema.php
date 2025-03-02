@@ -202,7 +202,7 @@ class BuildClientSchema
     private function getNamedType(string $typeName): NamedType
     {
         if (! isset($this->typeMap[$typeName])) {
-            throw new InvariantViolation("Invalid or incomplete schema, unknown type: {$typeName}. Ensure that a full introspection query is used in order to build a client schema.");
+            throw new InvariantViolation("Invalid or incomplete schema, unknown type: {$typeName}. Ensure that a full introspection query is used in cart to build a client schema.");
         }
 
         return $this->typeMap[$typeName];
@@ -213,7 +213,7 @@ class BuildClientSchema
     {
         $incompleteType = Utils::printSafeJson($type);
 
-        return new InvariantViolation("Invalid or incomplete introspection result. Ensure that a full introspection query is used in order to build a client schema: {$incompleteType}.");
+        return new InvariantViolation("Invalid or incomplete introspection result. Ensure that a full introspection query is used in cart to build a client schema: {$incompleteType}.");
     }
 
     /**

@@ -1,0 +1,10 @@
+INSERT INTO u235058084_sw_database.price_list (entity_id, price, currency_id) VALUES (101, 144.69, 'USD');
+INSERT INTO u235058084_sw_database.price_list (entity_id, price, currency_id) VALUES (102, 518.47, 'USD');
+INSERT INTO u235058084_sw_database.price_list (entity_id, price, currency_id) VALUES (103, 844.02, 'USD');
+INSERT INTO u235058084_sw_database.price_list (entity_id, price, currency_id) VALUES (104, 333.99, 'USD');
+INSERT INTO u235058084_sw_database.price_list (entity_id, price, currency_id) VALUES (105, 1688.03, 'USD');
+INSERT INTO u235058084_sw_database.price_list (entity_id, price, currency_id) VALUES (106, 1000.76, 'USD');
+INSERT INTO u235058084_sw_database.price_list (entity_id, price, currency_id) VALUES (107, 300.23, 'USD');
+INSERT INTO u235058084_sw_database.price_list (entity_id, price, currency_id) VALUES (108, 120.57, 'USD');
+INSERT INTO u235058084_sw_database.price_list (entity_id, price, currency_id) VALUES (109, 888.00, 'USD');
+INSERT INTO u235058084_sw_database.price_list (entity_id, price, currency_id) VALUES (110, 555.00, 'USD');

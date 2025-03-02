@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Order;
+namespace App\Cart;
 
 use App\DB;
 use App\Types;
@@ -9,7 +9,7 @@ use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 
 
-class OrderType extends ObjectType
+class CartType extends ObjectType
 {
 
     private $debug;
@@ -29,13 +29,17 @@ class OrderType extends ObjectType
             'description'=>'Product object',
             'fields'=>function () {
                 return[
-                  'order_id'=>[
+                  'cart_id'=>[
                       'type'=> Types::int(),
-                      'description'=> 'order identifier',
+                      'description'=> 'cart identifier',
                   ],
-                  'order_total'=>[
+                  'cart_guid'=>[
+                      'type'=> Types::string(),
+                      'description'=> 'cart identifier',
+                  ],
+                  'cart_total'=>[
                       'type'=> Types::float(),
-                      'description'=> 'order total',
+                      'description'=> 'cart total',
                   ],
                   'email'=>[
                       'type'=> Types::string(),
@@ -45,12 +49,12 @@ class OrderType extends ObjectType
                       'type'=> Types::string(),
                       'description'=> 'comment ',
                   ],
-                    'order_lines' => [
-                        'type' => Types::listOf(Types::orderLine()),
+                    'cart_lines' => [
+                        'type' => Types::listOf(Types::cartLine()),
                         'resolve'=>function ($root, $args){
 
                             $sql = "SELECT *
-                                        FROM order_lines
+                                        FROM cart_lines
                              ;";
 
 //                            echo  "999";
@@ -81,9 +85,9 @@ class OrderType extends ObjectType
 
     public static function getLineType(){
         $lineType = new InputObjectType([
-            'name' => 'OrderLineType',
+            'name' => 'CartLineType',
             'fields' => [
-                'order_line_id' => [
+                'cart_line_id' => [
                     'type' => Type::int(),
                     'description' => 'product id filter'
                 ],

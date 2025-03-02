@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Order;
+namespace App\Cart;
 
 use App\Types;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ObjectType;
 
-class OrderLineType extends ObjectType
+class CartLineType extends ObjectType
 {
     public function __construct()
     {
         $config=[
-            'description'=>'Order Line Type',
+            'description'=>'Cart Line Type',
             'fields'=>function (){
                 return[
-                    'order_line_id'=>[
+                    'cart_line_id'=>[
                       'type'=> Types::int(),
-                      'description'=> 'Order Line identifier',
+                      'description'=> 'Cart Line identifier',
                     ],
-                    'order_id'=>[
-                      'type'=> Types::int(),
-                      'description'=> 'Order identifier',
+                    'cart_id'=>[
+                      'type'=> Types::string(),
+                      'description'=> 'Cart identifier',
                     ],
                     'comment'=>[
                       'type'=> Types::string(),
-                      'description'=> 'OrderLine name',
+                      'description'=> 'CartLine name',
                     ]
                 ];
             },

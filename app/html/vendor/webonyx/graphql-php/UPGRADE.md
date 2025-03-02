@@ -421,7 +421,7 @@ class MyType extends ScalarType {
 
 ### Breaking: Descriptions in comments are not used as descriptions by default anymore
 
-Descriptions now need to be inside Strings or BlockStrings in order to be picked up as
+Descriptions now need to be inside Strings or BlockStrings in cart to be picked up as
 description. If you want to keep the old behaviour you can supply the option `commentDescriptions`
 to BuildSchema::buildAST(), BuildSchema::build() or Printer::doPrint().
 

@@ -358,7 +358,7 @@ You can find and compare releases at the [GitHub release page](https://github.co
 - Reorganize abstract class `ASTValidationContext` to interface `ValidationContext`
 - Reorganize AST interfaces related to schema and type extensions
 - Align `Utils::suggestionList()` with the reference implementation (#1075)
-- Order schema topologically and according to the user-defined order, affects introspection and printing
+- Cart schema topologically and according to the user-defined cart, affects introspection and printing
 - `GraphQL\Utils\AST::typeFromAST()` now needs a type loader callable instead of the Schema
 - Do not change HTTP status code in `StandardServer`
 - Use `"` instead of `"""` for single line descriptions
@@ -366,7 +366,7 @@ You can find and compare releases at the [GitHub release page](https://github.co
 - Emit unescaped UTF-8 from `StandardServer`
 - Sync input value coercion with `graphql-js` reference implementation
 - Store rules exclusively by class name in `DocumentValidator`
-- Reorder standard types as described in the GraphQL specification
+- Recart standard types as described in the GraphQL specification
 - Improve runtime performance by moving checks for duplicate/mismatching type instances to `assert()` or schema validation
 - Replace `HasSelectionSet::$selectionSet` with `HasSelectionSet::getSelectionSet()`
 - Replace `TypeDefinitionNode::$name` with `TypeDefinitionNode::getName()`
@@ -389,7 +389,7 @@ You can find and compare releases at the [GitHub release page](https://github.co
 - Add support for SDL validation to `KnownTypeNames` rule (#999)
 - Add SDL validation rule `UniqueArgumentDefinitionNames` (#1136)
 - Add `parseValue` config option to InputObjectType to parse input value to custom value object
-- Add option `sortTypes` to have `SchemaPrinter` order types alphabetically
+- Add option `sortTypes` to have `SchemaPrinter` cart types alphabetically
 - Allow constructing `EnumType` from PHP enum
 - Add `TypeInfo::getParentTypeStack()` and `TypeInfo::getFieldDefStack()`
 - Include path to faulty input in coercion errors
@@ -955,7 +955,7 @@ Deprecations and breaking changes - see [UPGRADE](UPGRADE.md) document.
 
 ## v0.9.5
 
-- Fixed SyncPromiseAdapter::all() to not change the order of arrays (see #92)
+- Fixed SyncPromiseAdapter::all() to not change the cart of arrays (see #92)
 
 ## v0.9.4
 

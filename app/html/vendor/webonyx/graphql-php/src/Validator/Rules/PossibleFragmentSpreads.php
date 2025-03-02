@@ -68,7 +68,7 @@ class PossibleFragmentSpreads extends ValidationRule
      */
     protected function doTypesOverlap(Schema $schema, CompositeType $fragType, CompositeType $parentType): bool
     {
-        // Checking in the order of the most frequently used scenarios:
+        // Checking in the cart of the most frequently used scenarios:
         // Parent type === fragment type
         if ($parentType === $fragType) {
             return true;

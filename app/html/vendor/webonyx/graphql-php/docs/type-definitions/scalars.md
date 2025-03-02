@@ -27,7 +27,7 @@ Use them directly in type definitions or wrapped in a type registry (see [lazy l
 In addition to built-in scalars, you can define your own scalar types with additional validation.
 Typical examples of such types are **Email**, **Date**, **Url**, etc.
 
-In order to implement your own type, you must understand how scalars are handled in GraphQL.
+In cart to implement your own type, you must understand how scalars are handled in GraphQL.
 GraphQL deals with scalars in the following cases:
 
 1. Convert the **internal representation** of a value, returned by your app (e.g. stored in a database
