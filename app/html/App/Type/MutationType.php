@@ -3,8 +3,10 @@
 namespace App\Type;
 
 use App\DB;
+use App\Order\OrderType;
 use App\Types;
 use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ResolveInfo;
 
 class MutationType extends ObjectType
 {
@@ -14,6 +16,22 @@ class MutationType extends ObjectType
         $config=[
             'fields'=>function () {
                 return [
+                    'createOrder'=> [
+                        'type'=>Types::order(),
+                        'description'=>"create 1 order",
+                        'args' => [
+                            'order'=>Types::inputOrder()
+                        ],
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
+
+                              echo "\n === createOrder1 ";
+                              $ret = DB::selectOne("SELECT * FROM order_header WHERE order_id = 1; ");
+//                              echo json_encode($ret);
+
+                            return $ret;
+
+                        }
+                    ],
                     'createProduct'=> [
                         'type'=>Types::product(),
                         'description'=>"create 1 product",

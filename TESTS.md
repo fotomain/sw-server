@@ -51,3 +51,10 @@ https://php-quickstart-docker.onrender.com/graphql.php
         }
     }
 }
+
+mutation ($newOrder:InputOrder) {
+        createOrder(order:$newOrder){
+            product_id
+            product_total 
+        }
+    }

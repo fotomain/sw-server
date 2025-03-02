@@ -9,6 +9,7 @@ use App\Product\KeyValueType;
 use App\Product\ProductClothesType;
 use App\Product\ProductTechType;
 use App\Product\ProductType;
+use App\Type\InputOrderType;
 use App\Type\InputProductType;
 use App\Type\MutationType;
 use App\Type\QueryType;
@@ -27,6 +28,7 @@ class Types
     private static $attribute;
     private static $attributeOption;
     private static $inputProduct;
+    private static $inputOrder;
 
     public static function keyvalue()
     {
@@ -99,6 +101,11 @@ class Types
     public static function inputProduct()
     {
         return self::$inputProduct ?: (self::$inputProduct = new InputProductType());
+    }
+
+    public static function inputOrder()
+    {
+        return self::$inputOrder ?: (self::$inputOrder = new InputOrderType());
     }
 }
 
