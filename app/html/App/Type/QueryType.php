@@ -33,6 +33,19 @@ class QueryType extends ObjectType
                             return DB::selectOne("SELECT * FROM products_table WHERE id = '{$args['id']}'");
                         }
                     ],
+                    'allOrders'=> [
+                        'type'=>Types::order(),
+                        'resolve'=> function ($root, $args) {
+
+                            $ret = DB::selectOne("SELECT * FROM order_header;");
+
+                            echo "=== allOrders";
+                            echo json_encode($ret);
+
+                            return 222;
+
+                        }
+                    ],
                     'allProducts'=> [
                         'type'=>Types::listOf(Types::product()),
                         'description'=> 'return List of Products',

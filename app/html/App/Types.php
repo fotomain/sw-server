@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Order\OrderType;
+
 use App\Product\KeyValueType;
 use App\Product\ProductClothesType;
 use App\Product\ProductTechType;
@@ -17,6 +19,9 @@ class Types
     private static $query;
     private static $mutation;
     private static $product;
+    private static $order;
+    private static $orderLine;
+
     private static $keyvalue;
     private static $attribute;
     private static $attributeOption;
@@ -29,6 +34,10 @@ class Types
     public static function product()
     {
         return self::$product?:(self::$product=new ProductType());
+    }
+    public static function order()
+    {
+        return self::$order?:(self::$order=new OrderType());
     }
     public static function productTech()
     {
@@ -50,6 +59,10 @@ class Types
     public static function int()
     {
         return Type::int();
+    }
+    public static function float()
+    {
+        return Type::float();
     }
 
     public static function string()

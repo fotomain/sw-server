@@ -11,6 +11,7 @@ RUN Docker local
 run chrome NO CORS
 CHECK Docker local
     http://localhost:8088/index.php
+    http://localhost:8088/graphql.php
 
 # GLOBAL DOCKER
     https://sw-server-przw.onrender.com/graphql.php
