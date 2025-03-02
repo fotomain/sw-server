@@ -23,7 +23,6 @@ class MutationType extends ObjectType
                             'order'=>Types::inputOrder()
                         ],
                         'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
-
                               echo "\n === createOrder1 ";
                               $ret = DB::selectOne("SELECT * FROM order_header WHERE order_id = 1; ");
 //                              echo json_encode($ret);
