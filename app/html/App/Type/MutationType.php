@@ -61,7 +61,7 @@ class MutationType extends ObjectType
                                 echo $lastIndex;
                                 echo "\n =========== ";
 
-                                $sqlRet="SELECT * FROM cart_header WHERE cart_id = ".$lastIndex."; ";
+                                $sqlRet="SELECT * FROM cart_header WHERE cart_id = ".$retHeader->cart_id."; ";
                                 echo "\n =========== sqlRet".$sqlRet;
 
                               $ret = DB::selectOne($sqlRet);
