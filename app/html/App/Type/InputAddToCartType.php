@@ -21,8 +21,12 @@ class InputAddToCartType extends InputObjectType
                         'type'=>Types::int(),
                         'description'=>'product id',
                     ],
+                    'product_has_options'=>[
+                        'type'=>Types::int(),
+                        'description'=>'product has options',
+                    ],
                     'product_options'=>[
-                        'type'=>Types::listOf(Types::productOptionAddCart()),
+                        'type'=>Types::listOf(Types::addToCartLineProductOption()),
                         'description'=>'product options',
                     ],
                     'qty'=>[

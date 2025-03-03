@@ -5,6 +5,7 @@ namespace App\Type;
 use App\DB;
 use App\Cart\CartType;
 use App\Types;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use stdClass;
@@ -43,24 +44,48 @@ class MutationType extends ObjectType
 
                             $a = [...$args['addToCartData']];
 
+                            $productHasOptions=false;
+                            if(array_key_exists("product_has_options",$a)) {
+                                $productHasOptions = $a['product_has_options'];
+                            }
+
+                            $optionsArrayPassed = false;
+                            $optionsArray=[];
+                            $optionsArrayIsFull=false;
+                            if(array_key_exists("product_options",$a)) {
+                                $optionsArrayPassed = true;
+                                $optionsArray = $a['product_options'];
+                                $optionsArrayIsFull = (0<sizeof($optionsArray));
+                            }
+
+                            if($productHasOptions && $optionsArrayPassed && (!$optionsArrayIsFull)) {
+                                $errorText="ERROR 303: options passed but array is empty! ";
+                                throw new Error($errorText);
+                            }
+
+                            echo "\n ========= optionsArrayIsFull  ";
+                            echo json_encode($optionsArrayIsFull);
+                            echo "\n ================== ";
+
                             $sqlHeader="SELECT cart_id FROM cart_header WHERE cart_guid = '".$a['cart_guid']."' ; ";
                             $cartHeader = DB::selectOne($sqlHeader);
 
                             $cartLine = DB::create("INSERT INTO cart_lines (
                                     cart_id, 
-                                    product_id, 
+                                    product_id,
+                                    product_has_options,
                                     qty
                                 ) 
                                 VALUES( 
                                      '{$cartHeader->cart_id}',
                                      '{$a['product_id']}',
+                                     '{$a['product_has_options']}',
                                      '{$a['qty']}'
                                        ); ");
 
-                                $hasOptions = array_key_exists("product_options",$a);
 
-                                if($hasOptions){
-                                    $optionsArray = $a['product_options'];
+
+                                if($optionsArrayPassed && $optionsArrayIsFull) {
 
                                     $sql = "";
                                     for ($i = 0; $i < sizeof($optionsArray) ; $i++) {

@@ -6,7 +6,7 @@ use App\Types;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ObjectType;
 
-class ProductOptionAddCartType extends InputObjectType
+class AddToCartLineProductOptionType extends InputObjectType
 {
     public function __construct()
     {

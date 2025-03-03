@@ -2,10 +2,11 @@
 
 namespace App;
 
+use App\Cart\CartLineOptionsType;
 use App\Cart\CartLineType;
 use App\Cart\CartType;
 
-use App\Cart\ProductOptionAddCartType;
+use App\Cart\AddToCartLineProductOptionType;
 use App\Product\KeyValueType;
 use App\Product\ProductClothesType;
 use App\Product\ProductTechType;
@@ -33,7 +34,8 @@ class Types
     private static $inputProduct;
     private static $inputCart;
     private static $inputAddToCart;
-    private static $productOptionAddCart;
+    private static $addToCartLineProductOption;
+    private static $cartLineOption;
 
     public static function keyvalue()
     {
@@ -116,9 +118,13 @@ class Types
     {
         return self::$inputAddToCart ?: (self::$inputAddToCart = new InputAddToCartType());
     }
-    public static function productOptionAddCart()
+    public static function addToCartLineProductOption()
     {
-        return self::$productOptionAddCart ?: (self::$productOptionAddCart = new ProductOptionAddCartType());
+        return self::$addToCartLineProductOption ?: (self::$addToCartLineProductOption = new AddToCartLineProductOptionType());
+    }
+    public static function cartLineOption()
+    {
+        return self::$cartLineOption ?: (self::$cartLineOption = new CartLineOptionsType());
     }
 }
 
