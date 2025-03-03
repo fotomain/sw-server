@@ -7,6 +7,7 @@ use App\Cart\CartType;
 use App\Types;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
+use stdClass;
 
 class MutationType extends ObjectType
 {
@@ -31,6 +32,7 @@ class MutationType extends ObjectType
                         }
                     ],
 
+//                    TODO qty:+1 to cart
                     'addToCart'=> [
                         'type'=>Types::cart(),
                         'description'=>"create or update 1 cart line",
@@ -38,34 +40,46 @@ class MutationType extends ObjectType
                             'addToCartData'=>Types::inputAddToCart()
                         ],
                         'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
-                              echo "\n === addToCart ";
-                              echo "\n === args ";
-                              echo json_encode($args);
-                              echo "\n =========== ";
 
-                            $sqlHeader="SELECT cart_id FROM cart_header WHERE cart_guid = '".$args['addToCartData']['cart_guid']."' ; ";
+                            $a = [...$args['addToCartData']];
+
+                            $sqlHeader="SELECT cart_id FROM cart_header WHERE cart_guid = '".$a['cart_guid']."' ; ";
                             $cartHeader = DB::selectOne($sqlHeader);
-                            echo "\n =========== cart_id ".$cartHeader->cart_id;
-                              
-                            $lastIndex = DB::create("INSERT INTO cart_lines (
+
+                            $cartLine = DB::create("INSERT INTO cart_lines (
                                     cart_id, 
                                     product_id, 
                                     qty
                                 ) 
                                 VALUES( 
                                      '{$cartHeader->cart_id}',
-                                     '{$args['addToCartData']['product_id']}',
-                                     '{$args['addToCartData']['qty']}'
+                                     '{$a['product_id']}',
+                                     '{$a['qty']}'
                                        ); ");
-                                echo "\n =========== lastIndex";
-                                echo $lastIndex;
-                                echo "\n =========== ";
 
-                                $sqlRet="SELECT * FROM cart_header WHERE cart_id = ".$cartHeader->cart_id."; ";
-                                echo "\n =========== sqlRet".$sqlRet;
+                                $hasOptions = array_key_exists("product_options",$a);
+
+                                if($hasOptions){
+                                    $optionsArray = $a['product_options'];
+
+                                    $sql = "";
+                                    for ($i = 0; $i < sizeof($optionsArray) ; $i++) {
+                                        $o = $optionsArray[$i];
+                                        $sql .= "
+                                        INSERT INTO cart_line_options (cart_line_id, attribute_id, option_id)
+                                        VALUES (
+                                            '{$cartLine}',
+                                            '{$o['attribute_id']}',
+                                            '{$o['option_id']}'
+                                        );
+                                    ";
+                                    }
+                                    DB::create($sql);
+                                }
+
+                              $sqlRet="SELECT * FROM cart_header WHERE cart_id = ".$cartHeader->cart_id."; ";
 
                               $ret = DB::selectOne($sqlRet);
-//                              echo json_encode($ret);
 
                             return $ret;
 
