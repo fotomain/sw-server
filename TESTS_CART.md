@@ -1,8 +1,38 @@
 
+mutation {
+        createCart {            
+            cart_guid
+        }
+    }
+
+## ==============
+{
+    "newCartLine": {
+        "cart_guid":"cc6bb519-f811-11ef-a13a-55e370885b2f",
+        "product_id":103,
+        "qty":1,
+        "product_options":[
+            {"option_id":80001},
+            {"option_id":80002},
+            {"option_id":80003}
+        ]        
+    }
+}
+
+mutation ($newCartLine:InputAddToCart) {
+        addToCart(addToCartData:$newCartLine){
+            cart_guid
+            cart_total 
+            cart_lines {
+                cart_line_id
+            }
+        }
+    }
+
+## ==============
 
 mutation ($newCart:InputCart) {
         updateCart(updateCartData:$newCart){
-            cart_id
             cart_guid
             cart_total 
             cart_lines {

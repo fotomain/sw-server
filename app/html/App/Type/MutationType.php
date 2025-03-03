@@ -15,21 +15,48 @@ class MutationType extends ObjectType
         //echo " __construct1";
         $config=[
             'fields'=>function () {
-//                aaaaacca-92d4-42fe-a455-383d139a45ca
+//                cc6bb519-f811-11ef-a13a-55e370885b2f
                 return [
-                    'updateCart'=> [
+                    'createCart'=> [
                         'type'=>Types::cart(),
                         'description'=>"create 1 cart",
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
+
+                            $lastIndex = DB::create("INSERT INTO cart_header (cart_guid, total_sum) VALUES( UUID(), 'new Cart'); ");
+
+                            $sqlRet="SELECT * FROM cart_header WHERE cart_id = ".$lastIndex."; ";
+
+                            return DB::selectOne($sqlRet);
+
+                        }
+                    ],
+
+                    'addToCart'=> [
+                        'type'=>Types::cart(),
+                        'description'=>"create or update 1 cart line",
                         'args' => [
-                            'updateCartData'=>Types::inputCart()
+                            'addToCartData'=>Types::inputAddToCart()
                         ],
                         'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
-                              echo "\n === updateCart ";
+                              echo "\n === addToCart ";
                               echo "\n === args ";
                               echo json_encode($args);
                               echo "\n =========== ";
 
-                            $lastIndex = DB::create("INSERT INTO cart_header (cart_guid, total_sum) VALUES( UUID(), '22222'); ");
+                            $sqlHeader="SELECT cart_id FROM cart_header WHERE cart_guid = '".$args['addToCartData']['cart_guid']."' ; ";
+                            $retHeader = DB::selectOne($sqlHeader);
+                            echo "\n =========== cart_id ".$retHeader->cart_id;
+                              
+                            $lastIndex = DB::create("INSERT INTO cart_lines (
+                                    cart_id, 
+                                    product_id, 
+                                    qty
+                                ) 
+                                VALUES( 
+                                     '{$retHeader->cart_id}',
+                                     '{$args['addToCartData']['product_id']}',
+                                     '{$args['addToCartData']['qty']}'
+                                       ); ");
                                 echo "\n =========== lastIndex";
                                 echo $lastIndex;
                                 echo "\n =========== ";
