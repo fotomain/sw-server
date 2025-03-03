@@ -44,8 +44,8 @@ class MutationType extends ObjectType
                               echo "\n =========== ";
 
                             $sqlHeader="SELECT cart_id FROM cart_header WHERE cart_guid = '".$args['addToCartData']['cart_guid']."' ; ";
-                            $retHeader = DB::selectOne($sqlHeader);
-                            echo "\n =========== cart_id ".$retHeader->cart_id;
+                            $cartHeader = DB::selectOne($sqlHeader);
+                            echo "\n =========== cart_id ".$cartHeader->cart_id;
                               
                             $lastIndex = DB::create("INSERT INTO cart_lines (
                                     cart_id, 
@@ -53,7 +53,7 @@ class MutationType extends ObjectType
                                     qty
                                 ) 
                                 VALUES( 
-                                     '{$retHeader->cart_id}',
+                                     '{$cartHeader->cart_id}',
                                      '{$args['addToCartData']['product_id']}',
                                      '{$args['addToCartData']['qty']}'
                                        ); ");
@@ -61,7 +61,7 @@ class MutationType extends ObjectType
                                 echo $lastIndex;
                                 echo "\n =========== ";
 
-                                $sqlRet="SELECT * FROM cart_header WHERE cart_id = ".$retHeader->cart_id."; ";
+                                $sqlRet="SELECT * FROM cart_header WHERE cart_id = ".$cartHeader->cart_id."; ";
                                 echo "\n =========== sqlRet".$sqlRet;
 
                               $ret = DB::selectOne($sqlRet);

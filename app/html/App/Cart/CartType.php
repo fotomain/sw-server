@@ -53,8 +53,8 @@ class CartType extends ObjectType
                         'type' => Types::listOf(Types::cartLine()),
                         'resolve'=>function ($root, $args){
 
-                            echo "\n === root1";
-                            echo json_encode($root);
+//                            echo "\n === root1";
+//                            echo json_encode($root);
 
                             $sql = "SELECT *
                                         FROM cart_lines WHERE cart_id=".$root->cart_id."
