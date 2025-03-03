@@ -14,10 +14,14 @@ class ProductOptionAddCartType extends InputObjectType
             'description'=>'Add Line Option Type',
             'fields'=>function (){
                 return[
+                    'attribute_id'=>[
+                      'type'=> Types::int(),
+                      'description'=> 'Cart Line attribute id',
+                    ],
                     'option_id'=>[
                       'type'=> Types::int(),
                       'description'=> 'Cart Line option id',
-                    ],
+                    ]
                 ];
             },
         ];

@@ -12,9 +12,9 @@ mutation {
         "product_id":103,
         "qty":1,
         "product_options":[
-            {"option_id":80001},
-            {"option_id":80002},
-            {"option_id":80003}
+            {"attribute_id":801,"option_id":80001},
+            {"attribute_id":802,"option_id":80002},
+            {"attribute_id":803,"option_id":80003}
         ]        
     }
 }
