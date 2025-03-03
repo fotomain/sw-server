@@ -1,6 +1,11 @@
 # sw-server
 
 composer update
+                            echo "\n ======== root";
+                            echo json_encode($root);
+                            echo "\n ======== root";
+
+
 
 # LOCAL
 RUN Docker local
