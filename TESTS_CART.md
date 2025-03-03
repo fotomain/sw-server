@@ -39,10 +39,13 @@ mutation ($newCartLine:InputAddToCart) {
 
 ## ============== READ CART
 
-SELECT t1.cart_line_id, t2.cart_line_id FROM cart_line_options AS t1
+
+SELECT t1.cart_line_id FROM cart_line_options AS t1
 INNER JOIN cart_line_options AS t2 ON t1.cart_line_id =t2.cart_line_id
+INNER JOIN cart_line_options AS t3 ON t2.cart_line_id =t3.cart_line_id
 WHERE t1.attribute_id=801 AND t1.option_id=80001
 AND  t2.attribute_id=802 AND t2.option_id=80002
+AND  t3.attribute_id=803 AND t3.option_id=80003
 
 //                            echo "\n ======== root";
 //                            echo json_encode($root);

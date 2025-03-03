@@ -33,7 +33,7 @@ class MutationType extends ObjectType
                         }
                     ],
 
-//                    TODO qty:+1 to cart
+//                    TODO cart_id NOT EXIST qty:+1 to cart
                     'addToCart'=> [
                         'type'=>Types::cart(),
                         'description'=>"create or update 1 cart line",
@@ -62,6 +62,22 @@ class MutationType extends ObjectType
                                 $errorText="ERROR 303: options passed but array is empty! ";
                                 throw new Error($errorText);
                             }
+
+//                            function read_cart_line_of_product_with_options($cart_id,$product_id,$optionsArray)
+//                            {
+//                                $count=sizeof($optionsArray);
+//                                $sql_select="SELECT t1.cart_line_id FROM cart_line_options AS t1";
+//                                $sql_where ="WHERE t1.attribute_id=801 AND t1.option_id=80001";
+//                                if($count>1) {
+//
+//                                }
+//                            }
+//
+//                            read_cart_line_of_product_with_options(
+//                                $a->cart_id,
+//                                $a->product_id,
+//                                $optionsArray
+//                            );
 
                             echo "\n ========= optionsArrayIsFull  ";
                             echo json_encode($optionsArrayIsFull);
