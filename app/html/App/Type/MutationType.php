@@ -49,7 +49,7 @@ class MutationType extends ObjectType
 
                             $cartHeader=CartController::readCartHeader($a['cart_guid']);
                             if(null==$cartHeader){
-                                $errorText="ERROR 5125: cart not found with id: ".$a['cart_guid'];
+                                $errorText="ERROR 5125: Cart not found! Cart id: ".$a['cart_guid'];
                                 throw new Error($errorText);
                             }
 
@@ -81,7 +81,9 @@ class MutationType extends ObjectType
                             switch ($resLine->result) {
                                 case "found_1_line": {
                                     //=== case qty +1
-                                    $ret = CartController::readCartHeader($cartHeader->cart_id);
+//                                    echo $resLine->cart_line_id;
+                                    $ret = CartController::updateQtyPlus( $resLine->cart_line_id, $a['qty']);
+                                    $ret = CartController::readCartHeader($cartHeader->cart_guid);
                                     return $ret;
                                 }
                                 case "found_more_1_line": {
@@ -92,12 +94,12 @@ class MutationType extends ObjectType
                             }
 
                             //=== case ADD NEW LINE
-                            echo "\n ========= resLine  ";
-                            echo json_encode($resLine);
-
-                            echo "\n ========= optionsArrayIsFull  ";
-                            echo json_encode($optionsArrayIsFull);
-                            echo "\n ================== ";
+//                            echo "\n ========= resLine  ";
+//                            echo json_encode($resLine);
+//
+//                            echo "\n ========= optionsArrayIsFull  ";
+//                            echo json_encode($optionsArrayIsFull);
+//                            echo "\n ================== ";
 
                             $cartLine = DB::create("INSERT INTO cart_lines (
                                     cart_id, 
@@ -111,8 +113,6 @@ class MutationType extends ObjectType
                                      '{$a['product_has_options']}',
                                      '{$a['qty']}'
                                        ); ");
-
-
 
                                 if($optionsArrayPassed && $optionsArrayIsFull) {
 
@@ -131,7 +131,7 @@ class MutationType extends ObjectType
                                     DB::create($sql);
                                 }
 
-                                $ret = CartController::readCartHeader($cartHeader->cart_id);
+                                $ret = CartController::readCartHeader($cartHeader->cart_guid);
 
                             return $ret;
 

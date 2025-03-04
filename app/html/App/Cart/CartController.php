@@ -12,9 +12,15 @@ public function __construct()
 {
 }
 
-public static function readCartHeader($cart_id)
+public static function updateQtyPlus($cart_line_id, $qty){
+
+    $sql="UPDATE cart_lines SET qty=qty+".$qty." WHERE cart_line_id=".$cart_line_id." ; ";
+    DB::execute($sql);
+
+}
+public static function readCartHeader($cart_guid)
 {
-    $sqlRet="SELECT * FROM cart_header WHERE cart_id = '".$cart_id."' ; ";
+    $sqlRet="SELECT * FROM cart_header WHERE cart_guid = '".$cart_guid."' ; ";
 //    echo $sqlRet;
     $ret = DB::selectOne($sqlRet);
     return $ret;
@@ -31,7 +37,7 @@ public static function read_cart_line_of_product_with_options(
                                     DROP TEMPORARY TABLE IF EXISTS temp_lines;
                                     CREATE TEMPORARY TABLE temp_lines
                                     SELECT * FROM cart_line_options WHERE cart_line_id IN
-                                    (SELECT cart_line_id FROM cart_lines WHERE cart_id =
+                                    (SELECT cart_line_id FROM cart_lines WHERE product_id=".$product_id." AND cart_id =
                                     (SELECT cart_id FROM cart_header
                                     WHERE cart_guid='".$cart_id."'))
                                     ; 
@@ -57,13 +63,15 @@ public static function read_cart_line_of_product_with_options(
 //                                echo $sql_where;
 //    echo "\n ========= sql  ";
     $sql = $sql_select.$sql_join.$sql_where." ;";
-    echo $sql;
+//    echo $sql;
     $result=DB::execute($sql);
     try {
         $data = $result->fetchAll(PDO::FETCH_ASSOC);
     }catch (e){
         echo "\n ========= ERROR 5001  ";
     }
+
+//    echo json_encode($data);
 
     $ret=new stdClass();
 
@@ -79,6 +87,7 @@ public static function read_cart_line_of_product_with_options(
         {
             $ret->status = 200;
             $ret->result="found_1_line";
+            $ret->cart_line_id = $data[0]["cart_line_id"];
             return $ret;
             break;
         }
