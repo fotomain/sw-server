@@ -3,6 +3,7 @@
 namespace App;
 
 use PDO;
+use PDOException;
 use stdClass;
 
 class DB
@@ -55,16 +56,38 @@ class DB
         }
         return $result;
     }
-public static function select($query)
+    public static function select($query)
     {
-        $handler = self::$pdo->query($query);
-        return $handler->fetchAll();
+        try {
+            $handler = self::$pdo->query($query);
+            $result = $handler->fetchAll();
+            return $result;
+        }catch(PDOException $e) {
+            echo "\n ====== ERROR 209 ====== \n";
+            echo $e->getMessage();
+            return null;
+        }
+        //echo json_encode($handler->fetchAll());
     }
 
     public static function selectOne($query)
     {
-        $result = self::select($query);
+        $handler = self::$pdo->query($query);
+        $result = $handler->fetchAll();
         return array_shift($result);
+    }
+
+    public static function exec($query){
+        return self::$pdo->exec($query);
+    }
+    public static function execute($query){
+        $handler = self::$pdo->prepare($query);
+        $handler->execute();
+//        echo "\n ====== execute";
+//        echo $handler->errorInfo()[2];
+//        echo "\n ====== execute";
+//        echo json_encode($handler);
+        return $handler;
     }
 
     public static function update($query){

@@ -2,12 +2,15 @@
 
 namespace App\Type;
 
+use App\Cart\CartController;
 use App\DB;
 use App\Cart\CartType;
 use App\Types;
+
 use GraphQL\Error\Error;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
+use PDO;
 use stdClass;
 
 class MutationType extends ObjectType
@@ -63,21 +66,14 @@ class MutationType extends ObjectType
                                 throw new Error($errorText);
                             }
 
-//                            function read_cart_line_of_product_with_options($cart_id,$product_id,$optionsArray)
-//                            {
-//                                $count=sizeof($optionsArray);
-//                                $sql_select="SELECT t1.cart_line_id FROM cart_line_options AS t1";
-//                                $sql_where ="WHERE t1.attribute_id=801 AND t1.option_id=80001";
-//                                if($count>1) {
-//
-//                                }
-//                            }
-//
-//                            read_cart_line_of_product_with_options(
-//                                $a->cart_id,
-//                                $a->product_id,
-//                                $optionsArray
-//                            );
+                            $resLine = CartController::read_cart_line_of_product_with_options(
+                                $a['cart_guid'],
+                                $a['product_id'],
+                                $optionsArray
+                            );
+
+                            echo "\n ========= resLine  ";
+                            echo json_encode($resLine);
 
                             echo "\n ========= optionsArrayIsFull  ";
                             echo json_encode($optionsArrayIsFull);
