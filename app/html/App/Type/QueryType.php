@@ -2,12 +2,15 @@
 
 namespace App\Type;
 
+use App\Cart\CartController;
 use App\DB;
 use App\Product\ProductClothesType;
 use App\Product\ProductTechType;
 use App\Product\ProductType;
 use App\Types;
+use GraphQL\Error\Error;
 use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ResolveInfo;
 
 class QueryType extends ObjectType
 {
@@ -33,6 +36,27 @@ class QueryType extends ObjectType
                             return DB::selectOne("SELECT * FROM products_table WHERE id = '{$args['id']}'");
                         }
                     ],
+
+                    'readCart'=> [
+                        'type'=>Types::cart(),
+                        'description'=>"read Cart",
+                        'args' => [
+                            'cartParams'=>Types::inputCartParams()
+                        ],
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
+                            $a = [...$args['cartParams']];
+
+                            $cartHeader=CartController::readCartHeader($a['cart_guid']);
+                            if(null==$cartHeader){
+                                $errorText="ERROR 5125: Cart not found! Cart id: ".$a['cart_guid'];
+                                throw new Error($errorText);
+                            }
+
+                            return $cartHeader;
+
+                        }
+                    ],
+
                     'allCarts'=> [
                         'type'=>Types::cart(),
                         'resolve'=> function ($root, $args) {

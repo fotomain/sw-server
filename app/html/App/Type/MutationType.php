@@ -35,21 +35,49 @@ class MutationType extends ObjectType
 
                         }
                     ],
+                    'deleteCartLine'=> [
+                        'type'=>Types::cart(),
+                        'description'=>"delete 1 line from the cart",
+                        'args' => [
+                            'cartParams'=>Types::inputCartParams()
+                        ],
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
 
-//                    TODO cart_id NOT EXIST qty:+1 to cart
+                            $a = [...$args['cartParams']];
+//                            echo json_encode($a);
+                            $cartHeader=CartController::readCartHeader($a['cart_guid']);
+                            if(null==$cartHeader){
+                                $errorText="ERROR 5128: Cart not found! Cart id: ".$a['cart_guid'];
+                                throw new Error($errorText);
+                            }
+
+                            $cartLine=CartController::readCartLine($a['cart_guid'], $a['cart_line_id']);
+
+                            if(null==$cartLine){
+                                $errorText="ERROR 5130: cart line not found! Cart id: ".$a['cart_guid']." line id ".$a['cart_line_id'];
+                                throw new Error($errorText);
+                            }
+
+                            CartController::deleteCartLine($a['cart_guid'], $cartLine->cart_line_id);
+
+                            return $cartHeader;
+
+                        }
+                    ],
+
                     'addToCart'=> [
                         'type'=>Types::cart(),
                         'description'=>"create or update 1 cart line",
                         'args' => [
-                            'addToCartData'=>Types::inputAddToCart()
+                            'cartParams'=>Types::inputCartParams()
                         ],
                         'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
 
-                            $a = [...$args['addToCartData']];
+                            $a = [...$args['cartParams']];
 
                             $cartHeader=CartController::readCartHeader($a['cart_guid']);
                             if(null==$cartHeader){
-                                $errorText="ERROR 5125: Cart not found! Cart id: ".$a['cart_guid'];
+                                $errorText="ERROR 5126: Cart not found! Cart id: ".$a['cart_guid'];
                                 throw new Error($errorText);
                             }
 
@@ -88,7 +116,7 @@ class MutationType extends ObjectType
                                 }
                                 case "found_more_1_line": {
                                     //=== case ERROR
-                                    $errorText="ERROR 5120: found more 1 line but 1 line needed ";
+                                    $errorText="ERROR 5125: found more 1 line but 1 line needed ";
                                     throw new Error($errorText);
                                 }
                             }

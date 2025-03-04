@@ -12,7 +12,7 @@ use App\Product\ProductClothesType;
 use App\Product\ProductTechType;
 use App\Product\ProductType;
 
-use App\Type\InputAddToCartType;
+use App\Type\InputCartParamsType;
 use App\Type\InputCartType;
 use App\Type\InputProductType;
 use App\Type\MutationType;
@@ -33,7 +33,7 @@ class Types
     private static $attributeOption;
     private static $inputProduct;
     private static $inputCart;
-    private static $inputAddToCart;
+    private static $inputCartParams;
     private static $addToCartLineProductOption;
     private static $cartLineOption;
 
@@ -114,9 +114,9 @@ class Types
     {
         return self::$inputCart ?: (self::$inputCart = new InputCartType());
     }
-    public static function inputAddToCart()
+    public static function inputCartParams()
     {
-        return self::$inputAddToCart ?: (self::$inputAddToCart = new InputAddToCartType());
+        return self::$inputCartParams ?: (self::$inputCartParams = new InputCartParamsType());
     }
     public static function addToCartLineProductOption()
     {

@@ -5,7 +5,7 @@ namespace App\Type;
 use App\Types;
 use GraphQL\Type\Definition\InputObjectType;
 
-class InputAddToCartType extends InputObjectType
+class InputCartParamsType extends InputObjectType
 {
     public function __construct()
     {
@@ -32,6 +32,10 @@ class InputAddToCartType extends InputObjectType
                     'qty'=>[
                         'type'=>Types::int(),
                         'description'=>'quantity',
+                    ],
+                    'cart_line_id'=>[
+                        'type'=>Types::int(),
+                        'description'=>'cart line id for delete',
                     ]
                 ];
             }

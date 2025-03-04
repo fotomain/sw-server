@@ -58,7 +58,7 @@ $mutationType = new ObjectType([
                 'episode' => Type::nonNull($episodeEnum),
                 'review' => Type::nonNull($reviewInputObject),
             ],
-            // TODO
+            
             'resolve' => fn ($rootValue, array $args): Review => StarWarsData::createReview($args['episode'], $args['review']),
         ]
     ]

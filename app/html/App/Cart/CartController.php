@@ -9,8 +9,8 @@ use stdClass;
 class CartController {
 
 public function __construct()
-{
-}
+    {
+    }
 
 public static function updateQtyPlus($cart_line_id, $qty){
 
@@ -26,7 +26,26 @@ public static function readCartHeader($cart_guid)
     return $ret;
 }
 
-//TODO $product_id
+public static function readCartLine($cart_guid,$cart_line_id)
+{
+    $sql="SELECT ll.cart_line_id FROM cart_lines AS ll
+            LEFT JOIN cart_header AS hh ON ll.cart_id=hh.cart_id
+            WHERE cart_line_id=".$cart_line_id." AND hh.cart_guid='".$cart_guid."'
+     ";
+//    echo $sql;
+    $ret = DB::selectOne($sql);
+    return $ret;
+}
+public static function deleteCartLine($cart_guid,$cart_line_id)
+{
+    $sql="
+        DELETE FROM cart_lines  
+               WHERE cart_line_id=".$cart_line_id."            
+    ";
+    return DB::execute($sql);
+}
+
+
 public static function read_cart_line_of_product_with_options(
     $cart_id,$product_id,$optionsArray
 ){
