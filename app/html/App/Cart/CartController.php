@@ -12,16 +12,20 @@ public function __construct()
 {
 }
 
+public static function readCartHeader($cart_id)
+{
+    $sqlRet="SELECT * FROM cart_header WHERE cart_id = '".$cart_id."' ; ";
+//    echo $sqlRet;
+    $ret = DB::selectOne($sqlRet);
+    return $ret;
+}
+
+//TODO $product_id
 public static function read_cart_line_of_product_with_options(
     $cart_id,$product_id,$optionsArray
 ){
 
-//                                echo "\n ========= read_cart  ";
-//                                echo json_encode($optionsArray);
-//                                echo "\n =========   ";
     $count=sizeof($optionsArray);
-//                                echo $count;
-//                                echo "\n =========   ";
 
     $sql_prepare="
                                     DROP TEMPORARY TABLE IF EXISTS temp_lines;
@@ -32,10 +36,8 @@ public static function read_cart_line_of_product_with_options(
                                     WHERE cart_guid='".$cart_id."'))
                                     ; 
                                 ";
-    echo "\n ========= 111  ";
-    DB::exec($sql_prepare);
 
-    echo "\n ========= 222  ";
+    DB::exec($sql_prepare);
 
     $sql_select="SELECT t1.cart_line_id FROM temp_lines AS t1 ";
     $o=$optionsArray[0];
@@ -53,21 +55,16 @@ public static function read_cart_line_of_product_with_options(
 //                                echo $sql_join;
 //                                echo "\n ========= sql_where  ";
 //                                echo $sql_where;
-    echo "\n ========= sql  ";
+//    echo "\n ========= sql  ";
     $sql = $sql_select.$sql_join.$sql_where." ;";
     echo $sql;
-    echo "\n ========= 333  ";
     $result=DB::execute($sql);
-    echo "\n ========= 444  ";
     try {
         $data = $result->fetchAll(PDO::FETCH_ASSOC);
     }catch (e){
         echo "\n ========= ERROR 5001  ";
     }
 
-//                                echo "\n ========= data  ";
-//                                echo json_encode($data);
-    echo "\n ========= 555  ";
     $ret=new stdClass();
 
     switch (sizeof($data)) {

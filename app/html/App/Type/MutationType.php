@@ -47,6 +47,12 @@ class MutationType extends ObjectType
 
                             $a = [...$args['addToCartData']];
 
+                            $cartHeader=CartController::readCartHeader($a['cart_guid']);
+                            if(null==$cartHeader){
+                                $errorText="ERROR 5125: cart not found with id: ".$a['cart_guid'];
+                                throw new Error($errorText);
+                            }
+
                             $productHasOptions=false;
                             if(array_key_exists("product_has_options",$a)) {
                                 $productHasOptions = $a['product_has_options'];
@@ -72,15 +78,26 @@ class MutationType extends ObjectType
                                 $optionsArray
                             );
 
+                            switch ($resLine->result) {
+                                case "found_1_line": {
+                                    //=== case qty +1
+                                    $ret = CartController::readCartHeader($cartHeader->cart_id);
+                                    return $ret;
+                                }
+                                case "found_more_1_line": {
+                                    //=== case ERROR
+                                    $errorText="ERROR 5120: found more 1 line but 1 line needed ";
+                                    throw new Error($errorText);
+                                }
+                            }
+
+                            //=== case ADD NEW LINE
                             echo "\n ========= resLine  ";
                             echo json_encode($resLine);
 
                             echo "\n ========= optionsArrayIsFull  ";
                             echo json_encode($optionsArrayIsFull);
                             echo "\n ================== ";
-
-                            $sqlHeader="SELECT cart_id FROM cart_header WHERE cart_guid = '".$a['cart_guid']."' ; ";
-                            $cartHeader = DB::selectOne($sqlHeader);
 
                             $cartLine = DB::create("INSERT INTO cart_lines (
                                     cart_id, 
@@ -114,9 +131,7 @@ class MutationType extends ObjectType
                                     DB::create($sql);
                                 }
 
-                              $sqlRet="SELECT * FROM cart_header WHERE cart_id = ".$cartHeader->cart_id."; ";
-
-                              $ret = DB::selectOne($sqlRet);
+                                $ret = CartController::readCartHeader($cartHeader->cart_id);
 
                             return $ret;
 
