@@ -79,7 +79,6 @@ WHERE t1.attribute_id=801 AND t1.option_id=80001
 AND  t2.attribute_id=802 AND t2.option_id=80002
 AND  t3.attribute_id=803 AND t3.option_id=80003
 
-
 ## ============== deleteCartLine
 
 {
