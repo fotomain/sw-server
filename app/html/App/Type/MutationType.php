@@ -165,6 +165,7 @@ class MutationType extends ObjectType
 
                         }
                     ],
+
                     'createProduct'=> [
                         'type'=>Types::product(),
                         'description'=>"create 1 product",

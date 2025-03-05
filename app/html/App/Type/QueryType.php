@@ -70,7 +70,7 @@ class QueryType extends ObjectType
 
                         }
                     ],
-                    'allProducts'=> [
+                    'readProducts'=> [
                         'type'=>Types::listOf(Types::product()),
                         'description'=> 'return List of Products',
                         'args'=>[
@@ -80,7 +80,7 @@ class QueryType extends ObjectType
                                         'popular' => true
                                     ]
                                 ],
-                                'cartBy' => [
+                                'orderBy' => [
                                 'type' => Types::string(),
                             ]
 

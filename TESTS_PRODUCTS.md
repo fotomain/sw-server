@@ -34,7 +34,7 @@ https://php-quickstart-docker.onrender.com/graphql.php
 
 
 {
-    query: allProducts (
+    query: readProducts (
         cartBy:"price ASC, name DESC",
         filters: { product_id: "1", inStock: false , option_id_set:[111,222,333]}
         )
