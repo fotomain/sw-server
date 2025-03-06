@@ -40,6 +40,24 @@ class CartLineType extends ObjectType
                       'type'=> Types::string(),
                       'description'=> 'CartLine name',
                     ],
+                    'product_object'=>[
+                        'type'=> Types::product(),
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
+
+                            $sql="  
+                                    SELECT price.price as price, p.* FROM product_entity p
+                                    LEFT JOIN price_list AS price ON p.product_id=price.entity_id
+                                         WHERE product_id=".$root->product_id."
+                                         AND price.currency_id='USD'
+                                                                
+                            ";
+
+
+                            $result=DB::selectOne($sql);
+                            
+                            return $result;
+                        }
+                    ],
                     'product_options'=>[
                         'type'=> Types::listOf(Types::cartLineOption()),
                         'resolve'=>function ($root, $args, $context, ResolveInfo $info) {

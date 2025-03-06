@@ -40,7 +40,7 @@ abstract class ProductAbstructType extends ObjectType
             'description'=>'Product object',
             'fields'=>function () {
                 return[
-                  'id'=>[
+                  'product_id'=>[
                       'type'=> Types::string(),
                       'description'=> 'Product identifier',
                   ],
@@ -49,7 +49,7 @@ abstract class ProductAbstructType extends ObjectType
                       'description'=> 'Product name',
                   ],
                   'price'=>[
-                      'type'=> Types::int(),
+                      'type'=> Types::float(),
                       'description'=> 'Product price',
                   ],
                     'attributes'=>[
@@ -69,7 +69,7 @@ abstract class ProductAbstructType extends ObjectType
                                     aa.entity_id as productId
                                 FROM catalog_product_entity_text AS aa
                                 LEFT JOIN attribute_entity hh ON aa.attribute_id=hh.attribute_id
-                                WHERE aa.entity_id = '{$root->id}'
+                                WHERE aa.entity_id = '{$root->product_id}'
                              ";
 
                             if($this->debug) {
@@ -103,7 +103,7 @@ abstract class ProductAbstructType extends ObjectType
             echo json_encode($params);
         }
 
-        $ret = "SELECT product_id AS id, name AS name, 111.11 as price FROM product_entity "
+        $ret = "SELECT * FROM product_entity "
             .$this->categorySuffix;
 
         return $ret;
