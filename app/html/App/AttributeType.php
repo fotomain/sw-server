@@ -29,14 +29,29 @@ class AttributeType extends ObjectType
 //                            echo "\n === root ";
 //                            echo "\n ===  ".json_encode($root);
 
+
+//                            $sqlAll = "
+//                                SELECT
+//                                    ao.option_id as id ,
+//                                    ao.displayValue as displayValue,
+//                                    ao.value as name
+//                                FROM attribute_options AS ao
+//                                WHERE ao.attribute_id = {$root->id}
+//                            ";
+
+
                             //cool1: use productId from previous level of analytics
                             $sql = "
-                                SELECT 
-                                    ao.option_id as id ,                                      
-                                    ao.displayValue as displayValue,
-                                    ao.value as name                                    
-                                FROM attribute_options AS ao
-                                WHERE ao.attribute_id = {$root->id}                                       
+
+                                SELECT
+                                    catalog.option_id as id ,
+                                    catalog.displayValue as name,
+                                    catalog.displayValue as displayValue,
+                                    catalog.value as value
+                                FROM catalog_product_entity_text AS ao
+                                INNER JOIN attribute_options AS catalog ON ao.value=catalog.option_id
+                                WHERE ao.attribute_id = {$root->id} AND ao.entity_id = {$root->productId}
+
                             ";
 //                            echo $sql;
                             return DB::select($sql);
