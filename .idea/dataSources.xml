@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="MySQLhostinger" uuid="10034dea-7184-41a3-9784-cc876d45172a">
+    <data-source source="LOCAL" name="mySQL-hostinger" uuid="481862fa-74d5-49e3-bbd3-9a953d6df2c2">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

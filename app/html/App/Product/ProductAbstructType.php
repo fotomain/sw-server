@@ -55,6 +55,21 @@ abstract class ProductAbstructType extends ObjectType
                   'price'=>[
                       'type'=> Types::float(),
                       'description'=> 'Product price',
+                      'resolve'=>function ($root, $args){
+
+                          $sql="  
+                                SELECT price.price FROM price_list as price
+                                     WHERE price.entity_id=".$root->product_id."
+                                     AND price.currency_id='USD'
+                                                                
+                            ";
+
+                          $result=DB::selectOne($sql);
+
+                          return $result->price;
+
+
+                      }
                   ],
                     'attributes'=>[
                         'type'=>Types::listOf(Types::attribute()),
@@ -74,6 +89,9 @@ abstract class ProductAbstructType extends ObjectType
                                 FROM catalog_product_entity_text AS aa
                                 LEFT JOIN attribute_entity hh ON aa.attribute_id=hh.attribute_id
                                 WHERE aa.entity_id = '{$root->product_id}'
+
+
+
                              ";
 
                             if($this->debug) {
