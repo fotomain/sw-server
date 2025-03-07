@@ -30,6 +30,7 @@ class Types
 
     private static $keyvalue;
     private static $attribute;
+    private static $gallery;
     private static $attributeOption;
     private static $inputProduct;
     private static $inputCart;
@@ -64,6 +65,10 @@ class Types
     public static function attribute()
     {
         return self::$attribute?:(self::$attribute=new AttributeType());
+    }
+    public static function gallery()
+    {
+        return self::$gallery?:(self::$gallery=new GalleryType());
     }
     public static function attributeOption()
     {

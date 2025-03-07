@@ -71,6 +71,25 @@ abstract class ProductAbstructType extends ObjectType
 
                       }
                   ],
+                    'gallery'=>[
+                        'type'=>Types::listOf(Types::gallery()),
+                        'description'=>'gallery url',
+                        'resolve'=>function ($root, $args){
+
+                            $sql = "SELECT * 
+                                    FROM product_gallery AS g
+                                    WHERE g.entity_id = '{$root->product_id}'
+                                    ORDER BY g.url_order ASC
+
+                             ";
+
+
+                            return DB::select("
+                                $sql                                                              
+                            ");
+
+                        }
+                    ],
                     'attributes'=>[
                         'type'=>Types::listOf(Types::attribute()),
                         'description'=>'attributes of 1 product',
