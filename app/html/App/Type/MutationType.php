@@ -48,14 +48,14 @@ class MutationType extends ObjectType
                             $cartHeader=CartController::readCartHeader($a['cart_guid']);
                             if(null==$cartHeader){
                                 $errorText="ERROR 5128: Cart not found! Cart id: ".$a['cart_guid'];
-                                throw new Error($errorText);
+                                echo new Error($errorText);
                             }
 
                             $cartLine=CartController::readCartLine($a['cart_guid'], $a['cart_line_id']);
 
                             if(null==$cartLine){
                                 $errorText="ERROR 5130: cart line not found! Cart id: ".$a['cart_guid']." line id ".$a['cart_line_id'];
-                                throw new Error($errorText);
+                                echo new Error($errorText);
                             }
 
                             CartController::deleteCartLine($a['cart_guid'], $cartLine->cart_line_id);
@@ -78,7 +78,7 @@ class MutationType extends ObjectType
                             $cartHeader=CartController::readCartHeader($a['cart_guid']);
                             if(null==$cartHeader){
                                 $errorText="ERROR 5126: Cart not found! Cart id: ".$a['cart_guid'];
-                                throw new Error($errorText);
+                                echo new Error($errorText);
                             }
 
                             $productHasOptions=false;
@@ -97,7 +97,7 @@ class MutationType extends ObjectType
 
                             if($productHasOptions && $optionsArrayPassed && (!$optionsArrayIsFull)) {
                                 $errorText="ERROR 303: options passed but array is empty! ";
-                                throw new Error($errorText);
+                                echo new Error($errorText);
                             }
 
                             $resLine = CartController::read_cart_line_of_product_with_options(
@@ -117,7 +117,7 @@ class MutationType extends ObjectType
                                 case "found_more_1_line": {
                                     //=== case ERROR
                                     $errorText="ERROR 5125: found more 1 line but 1 line needed ";
-                                    throw new Error($errorText);
+                                    echo Error($errorText);
                                 }
                             }
 

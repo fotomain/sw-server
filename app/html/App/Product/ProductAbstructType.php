@@ -48,9 +48,25 @@ abstract class ProductAbstructType extends ObjectType
                       'type'=> Types::string(),
                       'description'=> 'Product sku identifier',
                   ],
+                  'has_options'=>[
+                      'type'=> Types::int(),
+                      'description'=> 'Product has options',
+                  ],
                   'name'=>[
                       'type'=> Types::string(),
                       'description'=> 'Product name',
+                  ],
+                  'category'=>[
+                      'type'=> Types::string(),
+                      'description'=> 'Product description',
+                  ],
+                  'brand'=>[
+                      'type'=> Types::string(),
+                      'description'=> 'Product description',
+                  ],
+                  'description'=>[
+                      'type'=> Types::string(),
+                      'description'=> 'Product description',
                   ],
                   'price'=>[
                       'type'=> Types::float(),

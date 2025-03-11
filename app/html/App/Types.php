@@ -2,16 +2,17 @@
 
 namespace App;
 
+use App\Cart\AddToCartLineProductOptionType;
 use App\Cart\CartLineOptionsType;
 use App\Cart\CartLineType;
 use App\Cart\CartType;
-
-use App\Cart\AddToCartLineProductOptionType;
+use App\Product\AttributeOptionType;
+use App\Product\AttributeType;
+use App\Product\GalleryType;
 use App\Product\KeyValueType;
 use App\Product\ProductClothesType;
 use App\Product\ProductTechType;
 use App\Product\ProductType;
-
 use App\Type\InputCartParamsType;
 use App\Type\InputCartType;
 use App\Type\InputProductType;

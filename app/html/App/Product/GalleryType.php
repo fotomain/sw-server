@@ -1,6 +1,7 @@
 <?php
 
-namespace App;
+namespace App\Product;
+use App\Types;
 use GraphQL\Type\Definition\ObjectType;
 
 class GalleryType extends ObjectType
