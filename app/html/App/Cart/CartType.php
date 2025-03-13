@@ -41,6 +41,7 @@ class CartType extends ObjectType
                       'type'=> Types::float(),
                       'description'=> 'cart total',
                       'resolve'=>function ($root, $args) {
+
                           $sql = "
                              SELECT SUM( CAST(li.qty * pl.price AS DECIMAL(6,2))  ) AS total_cart
                              FROM cart_lines AS li
