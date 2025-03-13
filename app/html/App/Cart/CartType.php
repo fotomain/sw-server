@@ -42,7 +42,7 @@ class CartType extends ObjectType
                       'description'=> 'cart total',
                       'resolve'=>function ($root, $args) {
                           $sql = "
-                             SELECT SUM( li.qty * pl.price ) AS total_cart
+                             SELECT SUM( CAST(li.qty * pl.price AS DECIMAL(6,2))  ) AS total_cart
                              FROM cart_lines AS li
                                 LEFT JOIN price_list as pl ON li.product_id=pl.entity_id
                                 WHERE   pl.currency_id='USD'
@@ -70,7 +70,7 @@ class CartType extends ObjectType
                         'type' => Types::listOf(Types::cartLine()),
                         'resolve'=>function ($root, $args){
                             $sql = "
-                             SELECT pl.price AS price,  pl.price*li.qty AS total_line, li.* FROM cart_lines AS li
+                             SELECT pl.price AS price,  ROUND(pl.price*li.qty,2) AS total_line, li.* FROM cart_lines AS li
                                 LEFT JOIN price_list as pl ON li.product_id=pl.entity_id
                                 WHERE   pl.currency_id='USD'
                                 AND     cart_id=".$root->cart_id.
