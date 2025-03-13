@@ -40,7 +40,25 @@ class CartType extends ObjectType
                   'cart_total'=>[
                       'type'=> Types::float(),
                       'description'=> 'cart total',
-                  ],
+                      'resolve'=>function ($root, $args) {
+                          $sql = "
+                             SELECT SUM( li.qty * pl.price ) AS total_cart
+                             FROM cart_lines AS li
+                                LEFT JOIN price_list as pl ON li.product_id=pl.entity_id
+                                WHERE   pl.currency_id='USD'
+                                AND     li.cart_id=" . $root->cart_id .
+                              "
+                             ;";
+
+
+                          $res = DB::selectOne("
+                                $sql
+                            ");
+
+                          return $res->total_cart;
+
+                        }
+                       ],
                   'email'=>[
                       'type'=> Types::string(),
                       'description'=> 'email identifier',
@@ -52,21 +70,18 @@ class CartType extends ObjectType
                     'cart_lines' => [
                         'type' => Types::listOf(Types::cartLine()),
                         'resolve'=>function ($root, $args){
-
-//                            echo "\n === root1";
-//                            echo json_encode($root);
-
-                            $sql = "SELECT *
-                                        FROM cart_lines WHERE cart_id=".$root->cart_id."
+                            $sql = "
+                             SELECT pl.price AS price,  pl.price*li.qty AS total_line, li.* FROM cart_lines AS li
+                                LEFT JOIN price_list as pl ON li.product_id=pl.entity_id
+                                WHERE   pl.currency_id='USD'
+                                AND     cart_id=".$root->cart_id.
+                                "
                              ;";
-
-//                            echo  "999";
 
                             return DB::select("
                                 $sql
                             ");
 
-//                            return null; //["id"=>"fff","name"=>"fff"];
                         }
                     ],
 
@@ -110,3 +125,6 @@ class CartType extends ObjectType
 
 }
 
+
+//                            echo "\n === root1";
+//                            echo json_encode($root);

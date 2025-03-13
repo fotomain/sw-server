@@ -36,6 +36,14 @@ class CartLineType extends ObjectType
                       'type'=> Types::float(),
                       'description'=> 'Cart identifier',
                     ],
+                    'price'=>[
+                      'type'=> Types::float(),
+                      'description'=> 'Cart line price',
+                    ],
+                    'total_line'=>[
+                      'type'=> Types::float(),
+                      'description'=> 'Cart line total',
+                    ],
                     'comment'=>[
                       'type'=> Types::string(),
                       'description'=> 'CartLine name',
