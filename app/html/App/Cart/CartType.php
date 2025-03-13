@@ -50,7 +50,6 @@ class CartType extends ObjectType
                               "
                              ;";
 
-
                           $res = DB::selectOne("
                                 $sql
                             ");
