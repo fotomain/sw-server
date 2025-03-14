@@ -14,7 +14,15 @@ public function __construct()
 
 public static function updateQtyPlus($cart_line_id, $qty){
 
-    $sql="UPDATE cart_lines SET qty=qty+".$qty." WHERE cart_line_id=".$cart_line_id." ; ";
+    $sql="UPDATE cart_lines SET qty=qty+".$qty." WHERE cart_line_id=".$cart_line_id." ;  ";
+
+//    !!!
+//    SET @update_id := 0;
+//
+//    UPDATE cart_lines SET qty=qty-1, cart_line_id = (SELECT @update_id := cart_lines.cart_line_id)  WHERE cart_line_id=227;
+//    DELETE cart_line_options JONIN +++ WHERE cart_line_id = @update_id AND qty=0
+//    DELETE FROM cart_lines WHERE cart_line_id = @update_id AND qty=0;
+
     DB::execute($sql);
 
 }
