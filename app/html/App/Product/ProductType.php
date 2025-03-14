@@ -16,5 +16,4 @@ class ProductType extends ProductAbstructType
 
     }
 
-
 }
