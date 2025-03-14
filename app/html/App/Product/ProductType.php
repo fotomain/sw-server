@@ -7,7 +7,6 @@ use stdClass;
 
 class ProductType extends ProductAbstructType
 {
-
         public function __construct($params=array())
     {
 
