@@ -172,9 +172,9 @@ abstract class ProductAbstructType extends ObjectType
 
     }
 
-    public static function getArgsFilters(){
+    public static function getArgsFilters($name){
         $filters = new InputObjectType([
-            'name' => 'StoryFiltersInput',
+            'name' => $name,
             'fields' => [
                 'product_id' => [
                     'type' => Type::id(),

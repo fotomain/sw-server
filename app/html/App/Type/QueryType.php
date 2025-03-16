@@ -9,8 +9,10 @@ use App\Product\ProductTechType;
 use App\Product\ProductType;
 use App\Types;
 use GraphQL\Error\Error;
+use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
+use GraphQL\Type\Definition\Type;
 
 class QueryType extends ObjectType
 {
@@ -61,19 +63,30 @@ class QueryType extends ObjectType
                         'type'=>Types::cart(),
                         'resolve'=> function ($root, $args) {
 
-                            $ret = DB::selectOne("SELECT * FROM cart_header;");
+                            $ret = DB::select("SELECT * FROM cart_header;");
 
-                            echo "=== allCarts";
-                            echo json_encode($ret);
+//                            echo "=== allCarts";
+//                            echo json_encode($ret);
 
-                            return 222;
+                            return $ret;
 
                         }
                     ],
                     'readFirstCategory'=> [
                         'type'=>Types::listOf(Types::category()),
-                        'description'=> 'return Category of Products',
+                        'description'=> 'return 1st Category of Products',
+                        'args'=>[
+                            'filters' => [
+                                'type' => ProductType::getArgsFilters("readFirstCategoryFilters"),
+                                'defaultValue' => [
+                                    'popular' => true
+                                ]
+                            ],
+                            'orderBy' => [
+                                'type' => Types::string(),
+                            ]
 
+                        ],
                         'resolve'=> function ($root, $args) {
                             $sql = "SELECT name FROM categories
                                     WHERE category_id > 0
@@ -92,7 +105,7 @@ class QueryType extends ObjectType
                         'description'=> 'return List of Products',
                         'args'=>[
                             'filters' => [
-                                'type' => ProductType::getArgsFilters(),
+                                'type' => ProductType::getArgsFilters("readProductsFilters"),
                                 'defaultValue' => [
                                     'popular' => true
                                 ]
