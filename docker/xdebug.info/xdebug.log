@@ -4615,3 +4615,19 @@
 [1] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
 [1] Log closed at 2025-03-16 10:00:25.119606
 
+[1] Log opened at 2025-03-16 10:04:14.026190
+[1] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[1] Log closed at 2025-03-16 10:04:14.387514
+
+[1] Log opened at 2025-03-16 10:04:33.377707
+[1] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[1] Log closed at 2025-03-16 10:04:33.664400
+
+[1] Log opened at 2025-03-16 10:05:03.804180
+[1] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[1] Log closed at 2025-03-16 10:05:04.145690
+
+[1] Log opened at 2025-03-16 10:05:34.755599
+[1] [Step Debug] ERR: Could not connect to debugging client. Tried: host.docker.internal:9003 (through xdebug.client_host/xdebug.client_port).
+[1] Log closed at 2025-03-16 10:05:35.062556
+

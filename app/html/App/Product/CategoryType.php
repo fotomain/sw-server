@@ -40,36 +40,40 @@ class CategoryType extends ObjectType
                       'type'=> Types::string(),
                       'description'=> 'Category order_in_interface',
                   ],
-//                    'attributes'=>[
-//                        'type'=>Types::listOf(Types::attribute()),
-//                        'description'=>'attributes of 1 product',
-//                        'resolve'=>function ($root, $args){
-//
-//                            //cool1: select productId for next level of analytics
-//                            $sql = "SELECT DISTINCT
-//                                    aa.attribute_id as id ,
-//                                    hh.attribute_name as name,
-//                                    aa.entity_id as productId
-//                                FROM catalog_product_entity_text AS aa
-//                                LEFT JOIN attribute_entity hh ON aa.attribute_id=hh.attribute_id
-//                                WHERE aa.entity_id = '{$root->product_id}'
-//                                ORDER BY hh.display_order ASC
-//
-//
-//
-//                             ";
-//
-//                            if($this->debug) {
-////                                echo "/n === sql attributes1";
-////                                echo $sql;
-//                            }
-//
-//                            return DB::select("
-//                                $sql
-//                            ");
-//
-//                        }
-//                    ]
+                    'products'=>[
+                        'type'=>Types::listOf(Types::product()),
+                        'description'=>'Category products',
+                        'resolve'=>function ($root, $args){
+
+                            $sql = "
+
+                                SELECT * FROM product_entity WHERE category='{$root->name}'
+
+                             ";
+
+                            return DB::select("
+                                $sql
+                            ");
+
+                        }
+                    ],
+                    'categories'=>[
+                        'type'=>Types::listOf(Types::category()),
+                        'description'=>'Categories list',
+                        'resolve'=>function ($root, $args){
+
+                            $sql = "
+
+                                SELECT * FROM categories ORDER BY order_in_interface ASC;
+
+                             ";
+
+                            return DB::select("
+                                $sql
+                            ");
+
+                        }
+                    ]
                 ];
             },
         ];

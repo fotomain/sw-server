@@ -70,8 +70,22 @@ class QueryType extends ObjectType
 
                         }
                     ],
-                    'readCategory'=> [
+                    'readFirstCategory'=> [
                         'type'=>Types::listOf(Types::category()),
+                        'description'=> 'return Category of Products',
+
+                        'resolve'=> function ($root, $args) {
+                            $sql = "SELECT name FROM categories
+                                    WHERE category_id > 0
+                                    ORDER BY order_in_interface ASC
+                                    LIMIT 1
+                            ";
+
+                            $ret = DB::select($sql);
+
+                            return $ret;
+
+                        }
                     ],
                     'readProducts'=> [
                         'type'=>Types::listOf(Types::product()),
