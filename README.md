@@ -57,3 +57,13 @@ git commit -m "first commit"
 git branch -M main
 git push -u origin main
 
+# SQL add 
+alter table cart_lines
+add constraint cart_lines_cart_header_cart_id_fk
+foreign key (cart_id) references cart_header (cart_id)
+on delete cascade;
+
+alter table cart_line_options
+add constraint cart_line_options_cart_lines_cart_line_id_fk
+foreign key (cart_line_id) references cart_lines (cart_line_id)
+on delete cascade;
