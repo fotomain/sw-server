@@ -8,6 +8,7 @@ use App\Cart\CartLineType;
 use App\Cart\CartType;
 use App\Product\AttributeOptionType;
 use App\Product\AttributeType;
+use App\Product\CategoryType;
 use App\Product\GalleryType;
 use App\Product\KeyValueType;
 use App\Product\ProductClothesType;
@@ -23,6 +24,7 @@ use GraphQL\Type\Definition\Type;
 class Types
 {
 
+    private static $category;
     private static $query;
     private static $mutation;
     private static $product;
@@ -42,6 +44,10 @@ class Types
     public static function keyvalue()
     {
         return self::$keyvalue?:(self::$keyvalue=new KeyValueType());
+    }
+    public static function category()
+    {
+        return self::$category?:(self::$category=new CategoryType());
     }
     public static function product()
     {

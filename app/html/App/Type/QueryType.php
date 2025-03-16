@@ -70,17 +70,20 @@ class QueryType extends ObjectType
 
                         }
                     ],
+                    'readCategory'=> [
+                        'type'=>Types::listOf(Types::category()),
+                    ],
                     'readProducts'=> [
                         'type'=>Types::listOf(Types::product()),
                         'description'=> 'return List of Products',
                         'args'=>[
-                                'filters' => [
-                                    'type' => ProductType::getArgsFilters(),
-                                    'defaultValue' => [
-                                        'popular' => true
-                                    ]
-                                ],
-                                'orderBy' => [
+                            'filters' => [
+                                'type' => ProductType::getArgsFilters(),
+                                'defaultValue' => [
+                                    'popular' => true
+                                ]
+                            ],
+                            'orderBy' => [
                                 'type' => Types::string(),
                             ]
 
@@ -89,11 +92,11 @@ class QueryType extends ObjectType
                             $handler = new ProductType();
                             $sql = $handler->getSqlTextSELECT($args);
                             $debug=false;
-                                if($debug) {
-                                    echo "\n === sql getSqlTextSELECT";
-                                    echo "\n";
-                                    echo $sql;
-                                }
+                            if($debug) {
+                                echo "\n === sql getSqlTextSELECT";
+                                echo "\n";
+                                echo $sql;
+                            }
                             return DB::select($sql);
                         }
                     ],
