@@ -152,25 +152,50 @@ class QueryType extends ObjectType
                             return DB::select($sql);
                         }
                     ],
-                    'techProducts'=> [
+                    'readProductsTech'=> [
                         'type'=>Types::listOf(Types::productTech()),
                         'description'=> 'return List of Tech Products',
-                        'args'=> ProductTechType::getArgs(),
+                        'args'=>[
+                            'filters' => [
+                                'type' => ProductType::getArgsFilters("readProductsFiltersTech"),
+                                'defaultValue' => [
+                                    'popular' => true
+                                ]
+                            ],
+                            'orderBy' => [
+                                'type' => Types::string(),
+                            ]
+
+                        ],
                         'resolve'=> function ($root, $args) {
-                            echo "\n === args";
-                            echo json_encode($args);
 
                             $handler = new ProductTechType();
-                            return DB::select($handler->getSqlTextSELECT($args));
+                            $sql = $handler->getSqlTextSELECT($args);
+                            return DB::select($sql);
                         }
                     ],
-                    'clothesProducts'=> [
+                    'readProductsClothes'=> [
                         'type'=>Types::listOf(Types::productClothes()),
                         'description'=> 'return List of Clothes Products',
+                        'args'=>[
+                            'filters' => [
+                                'type' => ProductType::getArgsFilters("readProductsFiltersClothes"),
+                                'defaultValue' => [
+                                    'popular' => true
+                                ]
+                            ],
+                            'orderBy' => [
+                                'type' => Types::string(),
+                            ]
+
+                        ],
                         'resolve'=> function ($root, $args) {
+
                             $handler = new ProductClothesType();
-                            return DB::select($handler->getSqlTextSELECT());
+                            $sql = $handler->getSqlTextSELECT($args);
+                            return DB::select($sql);
                         }
+
                     ],
                 ]; //return fields
             }
