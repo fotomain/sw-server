@@ -36,6 +36,10 @@ class CategoryType extends ObjectType
                       'type'=> Types::string(),
                       'description'=> 'Category name',
                   ],
+                  'display_name'=>[
+                      'type'=> Types::string(),
+                      'description'=> 'Category name',
+                  ],
                   'order_in_interface'=>[
                       'type'=> Types::string(),
                       'description'=> 'Category order_in_interface',

@@ -72,6 +72,31 @@ class QueryType extends ObjectType
 
                         }
                     ],
+                    'readCategories'=> [
+                        'type'=>Types::listOf(Types::category()),
+                        'description'=> 'return Categories of Products',
+                        'args'=>[
+                            'filters' => [
+                                'type' => ProductType::getArgsFilters("readCategoryFilters"),
+                                'defaultValue' => [
+                                    'popular' => true
+                                ]
+                            ],
+                            'orderBy' => [
+                                'type' => Types::string(),
+                            ]
+
+                        ],
+                        'resolve'=> function ($root, $args) {
+                            $sql = "SELECT * FROM categories
+                                    ORDER BY order_in_interface ASC
+                            ";
+
+                            $ret = DB::select($sql);
+
+                            return $ret;
+                        }
+                    ],
                     'readFirstCategory'=> [
                         'type'=>Types::listOf(Types::category()),
                         'description'=> 'return 1st Category of Products',
