@@ -190,7 +190,6 @@ class QueryType extends ObjectType
 
                         ],
                         'resolve'=> function ($root, $args) {
-
                             $handler = new ProductClothesType();
                             $sql = $handler->getSqlTextSELECT($args);
                             return DB::select($sql);
