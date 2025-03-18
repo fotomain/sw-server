@@ -201,5 +201,6 @@ class QueryType extends ObjectType
         ];
 
         parent::__construct($config);
+
     }
 }
