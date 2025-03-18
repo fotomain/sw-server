@@ -125,12 +125,10 @@ abstract class ProductAbstructType extends ObjectType
                                     aa.attribute_id as id , 
                                     hh.attribute_name as name, 
                                     aa.entity_id as productId
-                                FROM catalog_product_entity_text AS aa
+                                FROM product_option_value AS aa
                                 LEFT JOIN attribute_entity hh ON aa.attribute_id=hh.attribute_id
                                 WHERE aa.entity_id = '{$root->product_id}'
                                 ORDER BY hh.display_order ASC
-
-
 
                              ";
 

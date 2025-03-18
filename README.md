@@ -67,3 +67,19 @@ alter table cart_line_options
 add constraint cart_line_options_cart_lines_cart_line_id_fk
 foreign key (cart_line_id) references cart_lines (cart_line_id)
 on delete cascade;
+
+
+## SQL ORDER
+alter table order_lines
+drop foreign key order_lines_cart_header_cart_id_fk;
+
+alter table order_lines
+add constraint order_lines_cart_header_cart_id_fk
+foreign key (cart_id) references order_header (cart_id)
+on delete cascade;
+
+alter table order_line_options
+add constraint order_line_options_order_lines_cart_line_id_fk
+foreign key (cart_line_id) references order_lines (cart_line_id)
+on delete cascade;
+

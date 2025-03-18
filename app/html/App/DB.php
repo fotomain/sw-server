@@ -76,6 +76,9 @@ class DB
         $result = $handler->fetchAll();
         return array_shift($result);
     }
+    public static function query($query){
+        return self::$pdo->query($query);
+    }
 
     public static function exec($query){
         return self::$pdo->exec($query);

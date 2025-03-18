@@ -26,22 +26,6 @@ class AttributeType extends ObjectType
                         'description'=>'attributes of 1 product',
                         'resolve'=>function ($root,$args){
 
-//                            echo "\n === attributeOptions root->id ";
-//                            echo "\n ===  ".$root->id;
-//                            echo "\n === root ";
-//                            echo "\n ===  ".json_encode($root);
-
-
-//                            $sqlAll = "
-//                                SELECT
-//                                    ao.option_id as id ,
-//                                    ao.displayValue as displayValue,
-//                                    ao.value as name
-//                                FROM attribute_options AS ao
-//                                WHERE ao.attribute_id = {$root->id}
-//                            ";
-
-
                             //cool1: use productId from previous level of analytics
                             $sql = "
 
@@ -50,7 +34,7 @@ class AttributeType extends ObjectType
                                     catalog.displayValue as name,
                                     catalog.displayValue as displayValue,
                                     catalog.value as value
-                                FROM catalog_product_entity_text AS ao
+                                FROM product_option_value AS ao
                                 INNER JOIN attribute_options AS catalog ON ao.value=catalog.option_id
                                 WHERE ao.attribute_id = {$root->id} AND ao.entity_id = {$root->productId}
 

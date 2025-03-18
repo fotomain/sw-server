@@ -65,6 +65,69 @@ class MutationType extends ObjectType
                         }
                     ],
 
+                    'createOrder'=> [
+                        'type'=>Types::string(),
+                        'description'=>"create or update 1 cart line",
+                        'args' => [
+                            'cartParams'=>Types::inputCartParams()
+                        ],
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
+
+                            $a = [...$args['cartParams']];
+
+                            $sql="                            
+                                SET @CART_GUID = '".$a['cart_guid']."' ;
+                                
+                                INSERT INTO order_header
+                                SELECT *
+                                FROM cart_header
+                                WHERE cart_guid = @CART_GUID ;
+                                
+                                INSERT INTO order_lines (cart_id,cart_line_id,product_id,qty,comment, price, total_sum_line)
+                                SELECT cart_id,cart_line_id,product_id,qty,comment, pl.price as price, CAST(qty * pl.price AS DECIMAL(6,2)) as total_sum_line
+                                FROM cart_lines
+                                LEFT JOIN price_list AS pl ON product_id=pl.entity_id
+                                WHERE
+                                pl.currency_id='USD'
+                                AND
+                                cart_id = (SELECT cart_id FROM cart_header
+                                WHERE cart_guid = @CART_GUID LIMIT 1
+                                );
+                                
+                                INSERT INTO order_line_options
+                                SELECT *
+                                FROM cart_line_options
+                                WHERE cart_line_id IN (SELECT cart_line_id FROM cart_lines WHERE cart_id = (SELECT cart_id FROM cart_header
+                                WHERE cart_guid = @CART_GUID LIMIT 1
+                                ));
+                                
+                                
+                                UPDATE order_header SET total_sum = (
+                                SELECT SUM(  total_sum_line )
+                                FROM order_lines
+                                WHERE cart_line_id IN (SELECT cart_line_id FROM cart_lines WHERE cart_id = (SELECT cart_id FROM cart_header
+                                WHERE cart_guid = @CART_GUID LIMIT 1
+                                )))
+                                WHERE cart_guid = @CART_GUID ;
+                                                                                                                           
+                            ";
+
+                            DB::create($sql);
+
+                            $sql="                                
+                                SELECT * FROM order_header WHERE cart_guid = '".$a['cart_guid']."' ; 
+                            ";
+
+                            $res = DB::select($sql);
+
+                            return 'createOrder-json-'.json_encode($res);
+
+
+                        }
+
+                    ],
+
+
                     'addToCart'=> [
                         'type'=>Types::cart(),
                         'description'=>"create or update 1 cart line",
