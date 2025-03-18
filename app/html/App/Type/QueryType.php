@@ -194,7 +194,6 @@ class QueryType extends ObjectType
                             $sql = $handler->getSqlTextSELECT($args);
                             return DB::select($sql);
                         }
-
                     ],
                 ]; //return fields
             }
