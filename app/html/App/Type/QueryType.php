@@ -3,6 +3,7 @@
 namespace App\Type;
 
 use App\Cart\CartController;
+use App\Cart\CartType;
 use App\DB;
 use App\Product\ProductClothesType;
 use App\Product\ProductTechType;
@@ -49,9 +50,11 @@ class QueryType extends ObjectType
                             $a = [...$args['cartParams']];
 
                             $cartHeader=CartController::readCartHeader($a['cart_guid']);
+
                             if(null==$cartHeader){
                                 $errorText="ERROR 5125: Cart not found! Cart id: ".$a['cart_guid'];
-                                throw new Error($errorText);
+                                return new Error($errorText);
+//                                throw new Error($errorText);
                             }
 
                             return $cartHeader;

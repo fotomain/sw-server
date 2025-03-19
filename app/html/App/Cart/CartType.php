@@ -55,7 +55,10 @@ class CartType extends ObjectType
                                 $sql
                             ");
 
-                          return $res->total_cart;
+                          $ret = $res->total_cart;
+                          if(null===$ret) $ret = 0;
+
+                          return $ret;
 
                         }
                        ],

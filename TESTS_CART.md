@@ -5,6 +5,14 @@ mutation {
         }
     }
 
+mutation {
+        deleteCart(
+            cartParams:{
+                cart_guid:"cc6bb519-f811-11ef-a13a-55e370885b2f"
+            }
+        )  
+    }
+
 
 ## ============== readCart
     {

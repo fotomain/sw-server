@@ -1,5 +1,7 @@
 # sw-server
 
+php -S localhost:8088 graphql.php
+
 composer update
                             echo "\n ======== root";
                             echo json_encode($root);

@@ -35,6 +35,26 @@ class MutationType extends ObjectType
 
                         }
                     ],
+                    'deleteCart'=> [
+                        'type'=>Types::string(),
+                        'description'=>"delete 1 cart",
+                        'args' => [
+                            'cartParams'=>Types::inputCartParams()
+                        ],
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
+
+                            $a = [...$args['cartParams']];
+
+                            $sql="DELETE FROM cart_header WHERE cart_guid = '".$a["cart_guid"]."' ;";
+
+                            DB::execute($sql);
+
+                            return json_encode([
+                                "operation_status"=>200
+                            ]);
+
+                        }
+                    ],
                     'deleteCartLine'=> [
                         'type'=>Types::cart(),
                         'description'=>"delete 1 line from the cart",
@@ -120,12 +140,14 @@ class MutationType extends ObjectType
 
                             $res = DB::select($sql);
 
-                            return 'createOrder-json-'.json_encode($res);
+                            return json_encode([
+                                "operation_status"=>200,
+                                "order_header"=>$res
+                            ]);
 
                         }
 
                     ],
-
 
                     'addToCart'=> [
                         'type'=>Types::cart(),

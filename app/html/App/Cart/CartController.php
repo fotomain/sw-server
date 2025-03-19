@@ -27,6 +27,7 @@ public static function readCartHeader($cart_guid)
     $sqlRet="SELECT * FROM cart_header WHERE cart_guid = '".$cart_guid."' ; ";
 //    echo $sqlRet;
     $ret = DB::selectOne($sqlRet);
+//    echo json_encode($ret);
     return $ret;
 }
 
