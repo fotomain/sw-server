@@ -19,14 +19,15 @@ class MutationType extends ObjectType
     {
         //echo " __construct1";
         $config=[
-            'fields'=>function () {
+            'fields'=>function ()
+            {
 //                cc6bb519-f811-11ef-a13a-55e370885b2f
                 return [
                     'createCart'=> [
                         'type'=>Types::cart(),
                         'description'=>"create 1 cart",
-                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
-
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info)
+                        {
                             $lastIndex = DB::create("INSERT INTO cart_header (cart_guid, total_sum) VALUES( UUID(), 'new Cart'); ");
 
                             $sqlRet="SELECT * FROM cart_header WHERE cart_id = ".$lastIndex."; ";
@@ -41,8 +42,8 @@ class MutationType extends ObjectType
                         'args' => [
                             'cartParams'=>Types::inputCartParams()
                         ],
-                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
-
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info)
+                        {
                             $a = [...$args['cartParams']];
 
                             $sql="DELETE FROM cart_header WHERE cart_guid = '".$a["cart_guid"]."' ;";
@@ -61,10 +62,10 @@ class MutationType extends ObjectType
                         'args' => [
                             'cartParams'=>Types::inputCartParams()
                         ],
-                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
-
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info)
+                        {
                             $a = [...$args['cartParams']];
-//                            echo json_encode($a);
+
                             $cartHeader=CartController::readCartHeader($a['cart_guid']);
                             if(null==$cartHeader){
                                 $errorText="ERROR 5128: Cart not found! Cart id: ".$a['cart_guid'];
@@ -91,7 +92,8 @@ class MutationType extends ObjectType
                         'args' => [
                             'cartParams'=>Types::inputCartParams()
                         ],
-                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info)
+                        {
 
                             $a = [...$args['cartParams']];
 

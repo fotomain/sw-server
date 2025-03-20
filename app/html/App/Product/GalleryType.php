@@ -10,7 +10,8 @@ class GalleryType extends ObjectType
     {
         $config=[
             'description'=>'Attribute object',
-            'fields'=>function (){
+            'fields'=>function ()
+            {
                 return[
                     'entity_id'=>[
                       'type'=> Types::int(),

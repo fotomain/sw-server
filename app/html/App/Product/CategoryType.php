@@ -26,7 +26,8 @@ class CategoryType extends ObjectType
 
         $config=[
             'description'=>'Category object',
-            'fields'=>function () {
+            'fields'=>function ()
+            {
                 return[
                   'category_id'=>[
                       'type'=> Types::string(),

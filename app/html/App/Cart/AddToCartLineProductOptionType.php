@@ -12,7 +12,8 @@ class AddToCartLineProductOptionType extends InputObjectType
     {
         $config=[
             'description'=>'Add Line Option Type',
-            'fields'=>function (){
+            'fields'=>function ()
+            {
                 return[
                     'attribute_id'=>[
                       'type'=> Types::int(),

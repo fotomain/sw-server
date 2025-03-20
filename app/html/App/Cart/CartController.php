@@ -12,7 +12,8 @@ public function __construct()
     {
     }
 
-public static function updateQtyPlus($cart_line_id, $qty){
+public static function updateQtyPlus($cart_line_id, $qty)
+{
 
     $sql="UPDATE cart_lines SET qty=qty+".$qty." WHERE cart_line_id=".$cart_line_id." ;  ";
     DB::execute($sql);

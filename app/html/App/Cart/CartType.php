@@ -27,7 +27,8 @@ class CartType extends ObjectType
 
         $config=[
             'description'=>'Product object',
-            'fields'=>function () {
+            'fields'=>function ()
+            {
                 return[
                   'cart_id'=>[
                       'type'=> Types::int(),
@@ -40,8 +41,8 @@ class CartType extends ObjectType
                   'cart_total'=>[
                       'type'=> Types::float(),
                       'description'=> 'cart total',
-                      'resolve'=>function ($root, $args) {
-
+                      'resolve'=>function ($root, $args)
+                      {
                           $sql = "
                              SELECT SUM( CAST(li.qty * pl.price AS DECIMAL(6,2))  ) AS total_cart
                              FROM cart_lines AS li
@@ -72,7 +73,8 @@ class CartType extends ObjectType
                   ],
                     'cart_lines' => [
                         'type' => Types::listOf(Types::cartLine()),
-                        'resolve'=>function ($root, $args){
+                        'resolve'=>function ($root, $args)
+                        {
                             $sql = "
                              SELECT pl.price AS price,  ROUND(pl.price*li.qty,2) AS total_line, li.* FROM cart_lines AS li
                                 LEFT JOIN price_list as pl ON li.product_id=pl.entity_id
@@ -99,12 +101,14 @@ class CartType extends ObjectType
         parent::__construct($config);
     }
 
-    public function getSqlTextSELECT($params){
-    // how to pass params
+    public function getSqlTextSELECT($params)
+    {
+    //TODO
 
     }
 
-    public static function getLineType(){
+    public static function getLineType()
+    {
         $lineType = new InputObjectType([
             'name' => 'CartLineType',
             'fields' => [

@@ -28,7 +28,6 @@ class DB
 
     public static function selectAttribures($query)
     {
-
         $handler = self::$pdo->query("
                 SELECT attributeSetId, attributeOptionId 
                 FROM products_attributes_table 
@@ -76,14 +75,17 @@ class DB
         $result = $handler->fetchAll();
         return array_shift($result);
     }
-    public static function query($query){
+    public static function query($query)
+    {
         return self::$pdo->query($query);
     }
 
-    public static function exec($query){
+    public static function exec($query)
+    {
         return self::$pdo->exec($query);
     }
-    public static function execute($query){
+    public static function execute($query)
+    {
         $handler = self::$pdo->prepare($query);
         $handler->execute();
 //        echo "\n ====== execute";
@@ -93,13 +95,15 @@ class DB
         return $handler;
     }
 
-    public static function update($query){
+    public static function update($query)
+    {
         $handler = self::$pdo->query($query);
         $handler->execute();
         return $handler->rowCount();
     }
 
-    public static function create($query){
+    public static function create($query)
+    {
 //        echo "\n create start ".$query;
         try {
             $handler = self::$pdo->prepare($query);
@@ -116,7 +120,8 @@ class DB
         }
     }
 
-    public static function delete($query){
+    public static function delete($query)
+    {
         $handler = self::$pdo->prepare($query);
         $handler->execute();
         $idn=0;

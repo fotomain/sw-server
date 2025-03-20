@@ -14,7 +14,8 @@ class CartLineType extends ObjectType
     {
         $config=[
             'description'=>'Cart Line Type',
-            'fields'=>function (){
+            'fields'=>function ()
+            {
                 return[
                     'cart_line_id'=>[
                       'type'=> Types::int(),
@@ -50,8 +51,8 @@ class CartLineType extends ObjectType
                     ],
                     'product_object'=>[
                         'type'=> Types::product(),
-                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
-
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info)
+                        {
                             $sql="  
                                     SELECT price.price as price, p.* FROM product_entity p
                                     LEFT JOIN price_list AS price ON p.product_id=price.entity_id
@@ -68,8 +69,8 @@ class CartLineType extends ObjectType
                     ],
                     'product_options'=>[
                         'type'=> Types::listOf(Types::cartLineOption()),
-                        'resolve'=>function ($root, $args, $context, ResolveInfo $info) {
-
+                        'resolve'=>function ($root, $args, $context, ResolveInfo $info)
+                        {
                             $sql="  SELECT * FROM cart_line_options
                                     WHERE cart_line_id=".$root->cart_line_id;"
                             ";

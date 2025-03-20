@@ -11,7 +11,8 @@ class AttributeOptionType extends ObjectType
     {
         $config=[
             'description'=>'Attribute Option',
-            'fields'=>function (){
+            'fields'=>function ()
+            {
                 return[
                     'id'=>[
                       'type'=> Types::string(),

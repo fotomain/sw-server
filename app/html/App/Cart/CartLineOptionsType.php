@@ -12,7 +12,8 @@ class CartLineOptionsType extends ObjectType
     {
         $config=[
             'description'=>'Cart Line Type',
-            'fields'=>function (){
+            'fields'=>function ()
+            {
                 return[
                     'cart_line_id'=>[
                       'type'=> Types::int(),

@@ -11,7 +11,8 @@ class AttributeType extends ObjectType
     {
         $config=[
             'description'=>'Attribute object',
-            'fields'=>function (){
+            'fields'=>function ()
+            {
                 return[
                     'id'=>[
                       'type'=> Types::string(),
@@ -24,7 +25,8 @@ class AttributeType extends ObjectType
                     'attributeOptions'=>[
                         'type'=>Types::listOf(Types::attributeOption()),
                         'description'=>'attributes of 1 product',
-                        'resolve'=>function ($root,$args){
+                        'resolve'=>function ($root,$args)
+                        {
 
                             //cool1: use productId from previous level of analytics
                             $sql = "

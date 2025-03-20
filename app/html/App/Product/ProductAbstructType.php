@@ -38,7 +38,8 @@ abstract class ProductAbstructType extends ObjectType
 
         $config=[
             'description'=>'Product object',
-            'fields'=>function () {
+            'fields'=>function ()
+            {
                 return[
                   'product_id'=>[
                       'type'=> Types::string(),
@@ -75,7 +76,8 @@ abstract class ProductAbstructType extends ObjectType
                   'price'=>[
                       'type'=> Types::float(),
                       'description'=> 'Product price',
-                      'resolve'=>function ($root, $args){
+                      'resolve'=>function ($root, $args)
+                      {
 
                           $sql="  
                                 SELECT price.price FROM price_list as price
@@ -94,7 +96,8 @@ abstract class ProductAbstructType extends ObjectType
                     'gallery'=>[
                         'type'=>Types::listOf(Types::gallery()),
                         'description'=>'gallery url',
-                        'resolve'=>function ($root, $args){
+                        'resolve'=>function ($root, $args)
+                        {
 
                             $sql = "SELECT * 
                                     FROM product_gallery AS g
@@ -113,7 +116,8 @@ abstract class ProductAbstructType extends ObjectType
                     'attributes'=>[
                         'type'=>Types::listOf(Types::attribute()),
                         'description'=>'attributes of 1 product',
-                        'resolve'=>function ($root, $args){
+                        'resolve'=>function ($root, $args)
+                        {
 
 //                            echo "\n === args ";
 //                            echo json_encode($args);
@@ -154,14 +158,8 @@ abstract class ProductAbstructType extends ObjectType
         parent::__construct($config);
     }
 
-    public function getSqlTextSELECT($params){
-    // how to pass params
-
-        $debug=false;
-        if($debug) {
-            echo "\n === getSqlTextSELECT1  ";
-            echo json_encode($params);
-        }
+    public function getSqlTextSELECT($params)
+    {
 
         $ret = "SELECT * FROM product_entity "
             .$this->categorySuffix;
@@ -170,7 +168,8 @@ abstract class ProductAbstructType extends ObjectType
 
     }
 
-    public static function getArgsFilters($name){
+    public static function getArgsFilters($name)
+    {
         $filters = new InputObjectType([
             'name' => $name,
             'fields' => [
@@ -203,7 +202,8 @@ abstract class ProductAbstructType extends ObjectType
         return $filters;
     }
 
-        public static function getArgs(){
+        public static function getArgs()
+        {
 
 //            where: "8888"
 
