@@ -183,7 +183,7 @@ class MutationType extends ObjectType
                                     $a['product_id'],
                                     $optionsArray
                                 );
-                            } else {
+                            } else { // variant no options
                                 $sqlLine = "
                                     SELECT cart_line_id FROM cart_lines 
                                             WHERE product_id=" . $a['product_id'] . " 
@@ -193,12 +193,11 @@ class MutationType extends ObjectType
                                 ";
                                 $resSql=DB::selectOne($sqlLine);
 
-                                echo json_encode($resSql);
+//                                echo json_encode($resSql);
                                 $resLine = new stdClass();
                                 if(null==$resSql){
                                     $resLine->result = "no_lines";
                                 }else{
-                                    $resLine->result = "found_1_line";
                                     $resLine->result = "found_1_line";
                                     $resLine->cart_line_id = $resSql->cart_line_id;
                                 }
@@ -207,7 +206,6 @@ class MutationType extends ObjectType
                             switch ($resLine->result) {
                                 case "found_1_line":
                                 {
-                                    echo 'found_1_line111';
                                     //=== case qty +1//
                                     $ret = CartController::updateQtyPlus($resLine->cart_line_id, $a['qty']);
                                     $ret = CartController::readCartHeader($cartHeader->cart_guid);
