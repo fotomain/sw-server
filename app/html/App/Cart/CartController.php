@@ -54,7 +54,7 @@ class CartController
 
 
     public static function read_cart_line_of_product_with_options(
-        $cart_id,
+        $cart_guid,
         $product_id,
         $optionsArray
     ) {
@@ -66,23 +66,27 @@ class CartController
                                     SELECT * FROM cart_line_options WHERE cart_line_id IN
                                     (SELECT cart_line_id FROM cart_lines WHERE product_id=" . $product_id . " AND cart_id =
                                     (SELECT cart_id FROM cart_header
-                                    WHERE cart_guid='" . $cart_id . "'))
+                                    WHERE cart_guid='" . $cart_guid . "'))
                                     ; 
                                 ";
 
         DB::exec($sql_prepare);
 
-        $sql_select = "SELECT t1.cart_line_id FROM temp_lines AS t1 ";
-        $o = $optionsArray[0];
-        $sql_where = "WHERE t1.attribute_id=" . $o['attribute_id'] . " AND t1.option_id=" . $o['option_id'] . " ";
-        $sql_join = "";
-        if ($count > 1) {
-            for ($i = 1; $i < $count; $i++) {
-                $o = $optionsArray[$i];
-                $sql_join .= " INNER JOIN temp_lines AS t" . ($i + 1) . " ON t" . ($i) . ".cart_line_id =t" . ($i + 1) . ".cart_line_id ";
-                $sql_where .= " AND t" . ($i + 1) . ".attribute_id=" . $o['attribute_id'] . " AND t" . ($i + 1) . ".option_id=" . $o['option_id'] . " ";
+
+//            echo "optionsArray1".json_encode($optionsArray);
+            $sql_select = "SELECT t1.cart_line_id FROM temp_lines AS t1 ";
+            $o = $optionsArray[0];
+            $sql_where = "WHERE t1.attribute_id=" . $o['attribute_id'] . " AND t1.option_id=" . $o['option_id'] . " ";
+            $sql_join = "";
+            if ($count > 1) {
+                for ($i = 1; $i < $count; $i++) {
+                    $o = $optionsArray[$i];
+                    $sql_join .= " INNER JOIN temp_lines AS t" . ($i + 1) . " ON t" . ($i) . ".cart_line_id =t" . ($i + 1) . ".cart_line_id ";
+                    $sql_where .= " AND t" . ($i + 1) . ".attribute_id=" . $o['attribute_id'] . " AND t" . ($i + 1) . ".option_id=" . $o['option_id'] . " ";
+                }
             }
-        }
+
+
 
 //                                echo "\n ========= sql_join  ";
 //                                echo $sql_join;

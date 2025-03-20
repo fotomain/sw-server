@@ -8,6 +8,7 @@ use App\Types;
 use GraphQL\Error\Error;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
+use stdClass;
 
 class MutationType extends ObjectType
 {
@@ -146,6 +147,7 @@ class MutationType extends ObjectType
                             'cartParams' => Types::inputCartParams()
                         ],
                         'resolve' => function ($root, $args, $context, ResolveInfo $info) {
+
                             $a = [...$args['cartParams']];
 
                             $cartHeader = CartController::readCartHeader($a['cart_guid']);
@@ -158,6 +160,8 @@ class MutationType extends ObjectType
                             if (array_key_exists("product_has_options", $a)) {
                                 $productHasOptions = $a['product_has_options'];
                             }
+
+//                            echo "productHasOptions".$productHasOptions;
 
                             $optionsArrayPassed = false;
                             $optionsArray = [];
@@ -173,17 +177,38 @@ class MutationType extends ObjectType
                                 echo new Error($errorText);
                             }
 
-                            $resLine = CartController::read_cart_line_of_product_with_options(
-                                $a['cart_guid'],
-                                $a['product_id'],
-                                $optionsArray
-                            );
+                            if($productHasOptions) {
+                                $resLine = CartController::read_cart_line_of_product_with_options(
+                                    $a['cart_guid'],
+                                    $a['product_id'],
+                                    $optionsArray
+                                );
+                            } else {
+                                $sqlLine = "
+                                    SELECT cart_line_id FROM cart_lines 
+                                            WHERE product_id=" . $a['product_id'] . " 
+                                            AND cart_id =
+                                                (SELECT cart_id FROM cart_header
+                                                WHERE cart_guid='".$a['cart_guid']. "')
+                                ";
+                                $resSql=DB::selectOne($sqlLine);
 
+                                echo json_encode($resSql);
+                                $resLine = new stdClass();
+                                if(null==$resSql){
+                                    $resLine->result = "no_lines";
+                                }else{
+                                    $resLine->result = "found_1_line";
+                                    $resLine->result = "found_1_line";
+                                    $resLine->cart_line_id = $resSql->cart_line_id;
+                                }
+
+                            }
                             switch ($resLine->result) {
                                 case "found_1_line":
                                 {
-                                    //=== case qty +1
-//                                    echo $resLine->cart_line_id;
+                                    echo 'found_1_line111';
+                                    //=== case qty +1//
                                     $ret = CartController::updateQtyPlus($resLine->cart_line_id, $a['qty']);
                                     $ret = CartController::readCartHeader($cartHeader->cart_guid);
                                     return $ret;
@@ -195,14 +220,6 @@ class MutationType extends ObjectType
                                     echo Error($errorText);
                                 }
                             }
-
-                            //=== case ADD NEW LINE
-//                            echo "\n ========= resLine  ";
-//                            echo json_encode($resLine);
-//
-//                            echo "\n ========= optionsArrayIsFull  ";
-//                            echo json_encode($optionsArrayIsFull);
-//                            echo "\n ================== ";
 
                             $cartLine = DB::create(
                                 "INSERT INTO cart_lines (
@@ -241,68 +258,6 @@ class MutationType extends ObjectType
                         }
                     ],
 
-                    'createProduct' => [
-                        'type' => Types::product(),
-                        'description' => "create 1 product",
-                        'args' => [
-                            'product' => Types::inputProduct()
-                        ],
-                        'resolve' => function ($root, $args) {
-//                            echo  "resolve createProduct".json_encode($args);
-                            echo "\n resolve createProduct " . $args['product']['id'];
-                            echo "\n resolve createProduct " . $args['product']['name'];
-                            echo "\n resolve createProduct " . $args['product']['price'];
-                            $productId = DB::create(
-                                "
-                                INSERT INTO products_table
-                                    (id, name, price)
-                                VALUES (
-                                    '{$args['product']['id']}', '{$args['product']['name']}', '{$args['product']['price']}'                                      
-                                );  
-                            "
-                            );
-
-                            return DB::selectOne("SELECT * FROM products_table WHERE id = {$productId}");
-                        }
-                    ],
-
-                    'deleteProduct' => [
-                        'type' => Types::product(),
-                        'description' => "delete 1 product",
-                        'args' => [
-                            'id' => Types::nonNull(Types::string())
-                        ],
-                        'resolve' => function ($root, $args) {
-                            $productReturn = DB::selectOne("SELECT * FROM products_table WHERE id = {$args['id']}");
-                            DB::delete("DELETE FROM products_table WHERE id = '{$args['id']}' ");
-                            return $productReturn;
-                        }
-                    ],
-
-                    'updateProductPrice' => [
-                        'type' => Types::product(),
-                        'description' => "update 1 product price",
-                        'args' => [
-                            'id' => Types::nonNull(Types::string()),
-                            'newPrice' => Types::int(),
-                        ], //args
-                        'resolve' => function ($root, $args) {
-                            $resUpdate = DB::update(
-                                "UPDATE products_table SET price = '{$args['newPrice']}' WHERE id = '{$args['id']}' "
-                            );
-//                                    if(1!==$resUpdate){
-//                                        $errorText = 'error 1010 - update not successful! product id = '.$args['id'];
-//                                        throw new \Exception($errorText);
-//                                    }
-
-                            $retProcuct = DB::selectOne("SELECT * FROM products_table WHERE id = '{$args['id']}' ");
-//                                    if(is_null($retProcuct)){
-//                                        $errorText = 'error product not found! id = '.$args['id'];
-//                                        throw new \Exception($errorText);
-//                                    }
-                            return $retProcuct;
-                        }
-                    ], // updateProductPrice
                 ];//return
             }
         ];

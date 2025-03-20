@@ -58,3 +58,14 @@ mutation ($newCart:InputCart) {
             product_total 
         }
     }
+
+
+{
+    query: readProduct(
+        product_id:101
+    )
+    {
+        product_id
+        name
+    }
+}

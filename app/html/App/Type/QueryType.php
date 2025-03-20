@@ -20,18 +20,15 @@ class QueryType extends ObjectType
         $config = [
             'fields' => function () {
                 return [
-                    'product' => [
+                    'readProduct' => [
                         'type' => Types::product(),
                         'description' => 'return Product by id',
                         'args' => [
-                            'id' => Types::string()
+                            'product_id' => Types::int()
                         ],
                         'resolve' => function ($root, $args) {
-                            //                            echo $args['id'];
-//                            return DB::selectOne("SELECT * FROM products_table WHERE id = 2 ");
-//                            echo "SELECT * FROM products_table WHERE id = '{$args['id']}'";
-
-                            return DB::selectOne("SELECT * FROM products_table WHERE id = '{$args['id']}'");
+                            $sql="SELECT * FROM product_entity WHERE product_id = {$args['product_id']}";
+                            return DB::selectOne($sql);
                         }
                     ],
 
@@ -61,12 +58,10 @@ class QueryType extends ObjectType
                         'resolve' => function ($root, $args) {
                             $ret = DB::select("SELECT * FROM cart_header;");
 
-//                            echo "=== allCarts";
-//                            echo json_encode($ret);
-
                             return $ret;
                         }
                     ],
+
                     'readCategories' => [
                         'type' => Types::listOf(Types::category()),
                         'description' => 'return Categories of Products',
@@ -92,33 +87,7 @@ class QueryType extends ObjectType
                             return $ret;
                         }
                     ],
-                    'readFirstCategory' => [
-                        'type' => Types::listOf(Types::category()),
-                        'description' => 'return 1st Category of Products',
-                        'args' => [
-                            'filters' => [
-                                'type' => ProductType::getArgsFilters("readFirstCategoryFilters"),
-                                'defaultValue' => [
-                                    'popular' => true
-                                ]
-                            ],
-                            'orderBy' => [
-                                'type' => Types::string(),
-                            ]
 
-                        ],
-                        'resolve' => function ($root, $args) {
-                            $sql = "SELECT name FROM categories
-                                    WHERE category_id > 0
-                                    ORDER BY order_in_interface ASC
-                                    LIMIT 1
-                            ";
-
-                            $ret = DB::select($sql);
-
-                            return $ret;
-                        }
-                    ],
                     'readProducts' => [
                         'type' => Types::listOf(Types::product()),
                         'description' => 'return List of Products',
@@ -146,6 +115,7 @@ class QueryType extends ObjectType
                             return DB::select($sql);
                         }
                     ],
+
                     'readProductsTech' => [
                         'type' => Types::listOf(Types::productTech()),
                         'description' => 'return List of Tech Products',
@@ -167,6 +137,7 @@ class QueryType extends ObjectType
                             return DB::select($sql);
                         }
                     ],
+
                     'readProductsClothes' => [
                         'type' => Types::listOf(Types::productClothes()),
                         'description' => 'return List of Clothes Products',
