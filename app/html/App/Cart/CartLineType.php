@@ -27,10 +27,6 @@ class CartLineType extends ObjectType
                         'type' => Types::int(),
                         'description' => 'Cart identifier',
                     ],
-                    'product_has_options' => [
-                        'type' => Types::int(),
-                        'description' => 'product has options',
-                    ],
                     'qty' => [
                         'type' => Types::float(),
                         'description' => 'Cart identifier',

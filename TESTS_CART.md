@@ -25,7 +25,7 @@ mutation {
                 cart_line_id
                 product_id
                 qty
-                product_has_options
+                
                 product_options {
                     attribute_id
                     option_id

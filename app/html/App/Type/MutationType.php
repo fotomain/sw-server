@@ -223,13 +223,13 @@ class MutationType extends ObjectType
                                 "INSERT INTO cart_lines (
                                     cart_id, 
                                     product_id,
-                                    product_has_options,
+                                    
                                     qty
                                 ) 
                                 VALUES( 
                                      '{$cartHeader->cart_id}',
                                      '{$a['product_id']}',
-                                     '{$a['product_has_options']}',
+                                     
                                      '{$a['qty']}'
                                        ); "
                             );
