@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Product;
+
 use App\DB;
 use App\Types;
 use GraphQL\Type\Definition\ObjectType;
@@ -9,25 +10,22 @@ class AttributeType extends ObjectType
 {
     public function __construct()
     {
-        $config=[
-            'description'=>'Attribute object',
-            'fields'=>function ()
-            {
-                return[
-                    'id'=>[
-                      'type'=> Types::string(),
-                      'description'=> 'Attribute identifier',
+        $config = [
+            'description' => 'Attribute object',
+            'fields' => function () {
+                return [
+                    'id' => [
+                        'type' => Types::string(),
+                        'description' => 'Attribute identifier',
                     ],
-                    'name'=>[
-                      'type'=> Types::string(),
-                      'description'=> 'Attribute name',
+                    'name' => [
+                        'type' => Types::string(),
+                        'description' => 'Attribute name',
                     ],
-                    'attributeOptions'=>[
-                        'type'=>Types::listOf(Types::attributeOption()),
-                        'description'=>'attributes of 1 product',
-                        'resolve'=>function ($root,$args)
-                        {
-
+                    'attributeOptions' => [
+                        'type' => Types::listOf(Types::attributeOption()),
+                        'description' => 'attributes of 1 product',
+                        'resolve' => function ($root, $args) {
                             //cool1: use productId from previous level of analytics
                             $sql = "
 
@@ -43,7 +41,6 @@ class AttributeType extends ObjectType
                             ";
 //                            echo $sql;
                             return DB::select($sql);
-
                         }
                     ]
 

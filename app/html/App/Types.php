@@ -43,49 +43,59 @@ class Types
 
     public static function keyvalue()
     {
-        return self::$keyvalue?:(self::$keyvalue=new KeyValueType());
+        return self::$keyvalue ?: (self::$keyvalue = new KeyValueType());
     }
+
     public static function category()
     {
-        return self::$category?:(self::$category=new CategoryType());
+        return self::$category ?: (self::$category = new CategoryType());
     }
+
     public static function product()
     {
-        return self::$product?:(self::$product=new ProductType());
+        return self::$product ?: (self::$product = new ProductType());
     }
+
     public static function cart()
     {
-        return self::$cart?:(self::$cart=new CartType());
+        return self::$cart ?: (self::$cart = new CartType());
     }
+
     public static function cartLine()
     {
-        return self::$cartLine?:(self::$cartLine=new CartLineType());
+        return self::$cartLine ?: (self::$cartLine = new CartLineType());
     }
+
     public static function productTech()
     {
-        return self::$product?:(self::$product=new ProductTechType());
+        return self::$product ?: (self::$product = new ProductTechType());
     }
+
     public static function productClothes()
     {
-        return self::$product?:(self::$product=new ProductClothesType());
+        return self::$product ?: (self::$product = new ProductClothesType());
     }
+
     public static function attribute()
     {
-        return self::$attribute?:(self::$attribute=new AttributeType());
+        return self::$attribute ?: (self::$attribute = new AttributeType());
     }
+
     public static function gallery()
     {
-        return self::$gallery?:(self::$gallery=new GalleryType());
+        return self::$gallery ?: (self::$gallery = new GalleryType());
     }
+
     public static function attributeOption()
     {
-        return self::$attributeOption?:(self::$attributeOption=new AttributeOptionType());
+        return self::$attributeOption ?: (self::$attributeOption = new AttributeOptionType());
     }
 
     public static function int()
     {
         return Type::int();
     }
+
     public static function float()
     {
         return Type::float();
@@ -126,14 +136,18 @@ class Types
     {
         return self::$inputCart ?: (self::$inputCart = new InputCartType());
     }
+
     public static function inputCartParams()
     {
         return self::$inputCartParams ?: (self::$inputCartParams = new InputCartParamsType());
     }
+
     public static function addToCartLineProductOption()
     {
-        return self::$addToCartLineProductOption ?: (self::$addToCartLineProductOption = new AddToCartLineProductOptionType());
+        return self::$addToCartLineProductOption ?: (self::$addToCartLineProductOption = new AddToCartLineProductOptionType(
+        ));
     }
+
     public static function cartLineOption()
     {
         return self::$cartLineOption ?: (self::$cartLineOption = new CartLineOptionsType());

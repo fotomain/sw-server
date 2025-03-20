@@ -14,79 +14,80 @@ class CartType extends ObjectType
 
     private $debug;
 
-    public function __construct($params=array())
+    public function __construct($params = array())
     {
-        $debug=false;
+        $debug = false;
 
-        if($debug) {
+        if ($debug) {
             echo "\n ======= params1";
             echo json_encode($params);
             echo "\n ======= params2";
         }
 
 
-        $config=[
-            'description'=>'Product object',
-            'fields'=>function ()
-            {
-                return[
-                  'cart_id'=>[
-                      'type'=> Types::int(),
-                      'description'=> 'cart identifier',
-                  ],
-                  'cart_guid'=>[
-                      'type'=> Types::string(),
-                      'description'=> 'cart identifier',
-                  ],
-                  'cart_total'=>[
-                      'type'=> Types::float(),
-                      'description'=> 'cart total',
-                      'resolve'=>function ($root, $args)
-                      {
-                          $sql = "
+        $config = [
+            'description' => 'Product object',
+            'fields' => function () {
+                return [
+                    'cart_id' => [
+                        'type' => Types::int(),
+                        'description' => 'cart identifier',
+                    ],
+                    'cart_guid' => [
+                        'type' => Types::string(),
+                        'description' => 'cart identifier',
+                    ],
+                    'cart_total' => [
+                        'type' => Types::float(),
+                        'description' => 'cart total',
+                        'resolve' => function ($root, $args) {
+                            $sql = "
                              SELECT SUM( CAST(li.qty * pl.price AS DECIMAL(6,2))  ) AS total_cart
                              FROM cart_lines AS li
                                 LEFT JOIN price_list as pl ON li.product_id=pl.entity_id
                                 WHERE   pl.currency_id='USD'
                                 AND     li.cart_id=" . $root->cart_id .
-                              "
+                                "
                              ;";
 
-                          $res = DB::selectOne("
+                            $res = DB::selectOne(
+                                "
                                 $sql
-                            ");
+                            "
+                            );
 
-                          $ret = $res->total_cart;
-                          if(null===$ret) $ret = 0;
+                            $ret = $res->total_cart;
+                            if (null === $ret) {
+                                $ret = 0;
+                            }
 
-                          return $ret;
-
+                            return $ret;
                         }
-                       ],
-                  'email'=>[
-                      'type'=> Types::string(),
-                      'description'=> 'email identifier',
-                  ],
-                  'comment'=>[
-                      'type'=> Types::string(),
-                      'description'=> 'comment ',
-                  ],
+                    ],
+                    'email' => [
+                        'type' => Types::string(),
+                        'description' => 'email identifier',
+                    ],
+                    'comment' => [
+                        'type' => Types::string(),
+                        'description' => 'comment ',
+                    ],
                     'cart_lines' => [
                         'type' => Types::listOf(Types::cartLine()),
-                        'resolve'=>function ($root, $args)
-                        {
+                        'resolve' => function ($root, $args) {
                             $sql = "
                              SELECT pl.price AS price,  ROUND(pl.price*li.qty,2) AS total_line, li.* FROM cart_lines AS li
                                 LEFT JOIN price_list as pl ON li.product_id=pl.entity_id
                                 WHERE   pl.currency_id='USD'
-                                AND     cart_id=".$root->cart_id.
+                                AND     cart_id=" . $root->cart_id .
                                 "
                              ;";
 
-                            return DB::select("
+                            return DB::select(
+                                "
                                 $sql
-                            ");
-
+                            "
+                            );
                         }
                     ],
 
@@ -94,17 +95,11 @@ class CartType extends ObjectType
             },
         ];
 
-        if($debug) {
+        if ($debug) {
             echo "\n ======= params4";
         }
 
         parent::__construct($config);
-    }
-
-    public function getSqlTextSELECT($params)
-    {
-    //TODO
-
     }
 
     public static function getLineType()
@@ -127,6 +122,12 @@ class CartType extends ObjectType
             ]
         ]);
         return $lineType;
+    }
+
+    public function getSqlTextSELECT($params)
+    {
+        //TODO
+
     }
 
 

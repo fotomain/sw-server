@@ -14,91 +14,85 @@ abstract class ProductAbstructType extends ObjectType
     private $categorySuffix;
     private $debug;
 
-    public function __construct($params=array())
+    public function __construct($params = array())
     {
-        $debug=false;
+        $debug = false;
 
-        if($debug) {
+        if ($debug) {
             echo "\n ======= params1";
             echo json_encode($params);
             echo "\n ======= params2";
         }
 
         $this->categorySuffix = ' WHERE 1=1 ';
-        if(is_object($params)){
-            if(property_exists($params,'categoryId')){
-            $this->categorySuffix = $this->categorySuffix
-                ." AND category = '{$params->categoryId}' ";
-        }}
+        if (is_object($params)) {
+            if (property_exists($params, 'categoryId')) {
+                $this->categorySuffix = $this->categorySuffix
+                    . " AND category = '{$params->categoryId}' ";
+            }
+        }
 
-        if($debug) {
+        if ($debug) {
             echo "\n ======= params3";
         }
 
 
-        $config=[
-            'description'=>'Product object',
-            'fields'=>function ()
-            {
-                return[
-                  'product_id'=>[
-                      'type'=> Types::string(),
-                      'description'=> 'Product identifier',
-                  ],
-                  'sku'=>[
-                      'type'=> Types::string(),
-                      'description'=> 'Product sku identifier',
-                  ],
-                  'inStock'=>[
-                      'type'=> Types::int(),
-                      'description'=> 'Product in Stock',
-                  ],
-                  'has_options'=>[
-                      'type'=> Types::int(),
-                      'description'=> 'Product has options',
-                  ],
-                  'name'=>[
-                      'type'=> Types::string(),
-                      'description'=> 'Product name',
-                  ],
-                  'category'=>[
-                      'type'=> Types::string(),
-                      'description'=> 'Product description',
-                  ],
-                  'brand'=>[
-                      'type'=> Types::string(),
-                      'description'=> 'Product description',
-                  ],
-                  'description'=>[
-                      'type'=> Types::string(),
-                      'description'=> 'Product description',
-                  ],
-                  'price'=>[
-                      'type'=> Types::float(),
-                      'description'=> 'Product price',
-                      'resolve'=>function ($root, $args)
-                      {
-
-                          $sql="  
+        $config = [
+            'description' => 'Product object',
+            'fields' => function () {
+                return [
+                    'product_id' => [
+                        'type' => Types::string(),
+                        'description' => 'Product identifier',
+                    ],
+                    'sku' => [
+                        'type' => Types::string(),
+                        'description' => 'Product sku identifier',
+                    ],
+                    'inStock' => [
+                        'type' => Types::int(),
+                        'description' => 'Product in Stock',
+                    ],
+                    'has_options' => [
+                        'type' => Types::int(),
+                        'description' => 'Product has options',
+                    ],
+                    'name' => [
+                        'type' => Types::string(),
+                        'description' => 'Product name',
+                    ],
+                    'category' => [
+                        'type' => Types::string(),
+                        'description' => 'Product description',
+                    ],
+                    'brand' => [
+                        'type' => Types::string(),
+                        'description' => 'Product description',
+                    ],
+                    'description' => [
+                        'type' => Types::string(),
+                        'description' => 'Product description',
+                    ],
+                    'price' => [
+                        'type' => Types::float(),
+                        'description' => 'Product price',
+                        'resolve' => function ($root, $args) {
+                            $sql = "  
                                 SELECT price.price FROM price_list as price
-                                     WHERE price.entity_id=".$root->product_id."
+                                     WHERE price.entity_id=" . $root->product_id . "
                                      AND price.currency_id='USD'
                                                                 
                             ";
 
-                          $result=DB::selectOne($sql);
+                            $result = DB::selectOne($sql);
 
-                          return $result->price;
-
-
-                      }
-                  ],
-                    'gallery'=>[
-                        'type'=>Types::listOf(Types::gallery()),
-                        'description'=>'gallery url',
-                        'resolve'=>function ($root, $args)
-                        {
-
+                            return $result->price;
+                        }
+                    ],
+                    'gallery' => [
+                        'type' => Types::listOf(Types::gallery()),
+                        'description' => 'gallery url',
+                        'resolve' => function ($root, $args) {
                             $sql = "SELECT * 
                                     FROM product_gallery AS g
                                     WHERE g.entity_id = '{$root->product_id}'
@@ -107,18 +101,17 @@ abstract class ProductAbstructType extends ObjectType
                              ";
 
 
-                            return DB::select("
+                            return DB::select(
+                                "
                                 $sql                                                              
-                            ");
-
+                            "
+                            );
                         }
                     ],
-                    'attributes'=>[
-                        'type'=>Types::listOf(Types::attribute()),
-                        'description'=>'attributes of 1 product',
-                        'resolve'=>function ($root, $args)
-                        {
-
+                    'attributes' => [
+                        'type' => Types::listOf(Types::attribute()),
+                        'description' => 'attributes of 1 product',
+                        'resolve' => function ($root, $args) {
 //                            echo "\n === args ";
 //                            echo json_encode($args);
 //                            echo "\n === root->id ";
@@ -136,36 +129,27 @@ abstract class ProductAbstructType extends ObjectType
 
                              ";
 
-                            if($this->debug) {
+                            if ($this->debug) {
 //                                echo "/n === sql attributes1";
 //                                echo $sql;
                             }
 
-                            return DB::select("
+                            return DB::select(
+                                "
                                 $sql                                                              
-                            ");
-
+                            "
+                            );
                         }
                     ]
                 ];
             },
         ];
 
-        if($debug) {
+        if ($debug) {
             echo "\n ======= params4";
         }
 
         parent::__construct($config);
-    }
-
-    public function getSqlTextSELECT($params)
-    {
-
-        $ret = "SELECT * FROM product_entity "
-            .$this->categorySuffix;
-
-        return $ret;
-
     }
 
     public static function getArgsFilters($name)
@@ -202,17 +186,24 @@ abstract class ProductAbstructType extends ObjectType
         return $filters;
     }
 
-        public static function getArgs()
-        {
-
+    public static function getArgs()
+    {
 //            where: "8888"
 
 //        $args = new stdClass();
 //        $args->name=Types::string();
         $args = array();
 //        $args = [...$args,'where'=>Types::string()] ;
-        $args = [...$args,'where'=>Types::string()] ;
+        $args = [...$args, 'where' => Types::string()];
         return $args;
+    }
+
+    public function getSqlTextSELECT($params)
+    {
+        $ret = "SELECT * FROM product_entity "
+            . $this->categorySuffix;
+
+        return $ret;
     }
 
 
