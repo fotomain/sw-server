@@ -156,6 +156,10 @@ abstract class ProductAbstructType extends ObjectType
         $filters = new InputObjectType([
             'name' => $name,
             'fields' => [
+                'filterProductName' => [
+                    'type' => Type::string(),
+                    'description' => 'product id filter'
+                ],
                 'product_id' => [
                     'type' => Type::id(),
                     'description' => 'product id filter'
@@ -199,8 +203,14 @@ abstract class ProductAbstructType extends ObjectType
 
     public function getSqlTextSELECT($params)
     {
-        $ret = "SELECT * FROM product_entity "
-            . $this->categorySuffix;
+        $a = $params['filters'];
+        $filterProductName="";
+
+        if(!empty($a['filterProductName'])){
+            $filterProductName = " AND name LIKE '%".$a['filterProductName']."%'";
+        }
+
+        $ret = "SELECT * FROM product_entity ".$this->categorySuffix.$filterProductName;
 
         return $ret;
     }

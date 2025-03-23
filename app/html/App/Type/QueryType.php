@@ -101,17 +101,11 @@ class QueryType extends ObjectType
                             'orderBy' => [
                                 'type' => Types::string(),
                             ]
-
                         ],
                         'resolve' => function ($root, $args) {
                             $handler = new ProductType();
                             $sql = $handler->getSqlTextSELECT($args);
-                            $debug = false;
-                            if ($debug) {
-                                echo "\n === sql getSqlTextSELECT";
-                                echo "\n";
-                                echo $sql;
-                            }
+
                             return DB::select($sql);
                         }
                     ],
