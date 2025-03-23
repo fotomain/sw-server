@@ -72,9 +72,8 @@ class CartController
 
         DB::exec($sql_prepare);
 
-
-//            echo "optionsArray1".json_encode($optionsArray);
             $sql_select = "SELECT t1.cart_line_id FROM temp_lines AS t1 ";
+//            TODO check error - empty
             $o = $optionsArray[0];
             $sql_where = "WHERE t1.attribute_id=" . $o['attribute_id'] . " AND t1.option_id=" . $o['option_id'] . " ";
             $sql_join = "";
@@ -85,8 +84,6 @@ class CartController
                     $sql_where .= " AND t" . ($i + 1) . ".attribute_id=" . $o['attribute_id'] . " AND t" . ($i + 1) . ".option_id=" . $o['option_id'] . " ";
                 }
             }
-
-
 
 //                                echo "\n ========= sql_join  ";
 //                                echo $sql_join;

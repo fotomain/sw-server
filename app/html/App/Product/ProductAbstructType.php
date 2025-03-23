@@ -97,7 +97,6 @@ abstract class ProductAbstructType extends ObjectType
                                     FROM product_gallery AS g
                                     WHERE g.entity_id = '{$root->product_id}'
                                     ORDER BY g.url_order ASC
-
                              ";
 
 

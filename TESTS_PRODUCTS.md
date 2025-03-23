@@ -47,6 +47,7 @@ https://php-quickstart-docker.onrender.com/graphql.php
                     id
                     name
                     displayValue
+                    value
                 } 
         }
     }
