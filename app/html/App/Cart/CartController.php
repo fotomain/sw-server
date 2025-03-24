@@ -72,18 +72,18 @@ class CartController
 
         DB::exec($sql_prepare);
 
-            $sql_select = "SELECT t1.cart_line_id FROM temp_lines AS t1 ";
+        $sql_select = "SELECT t1.cart_line_id FROM temp_lines AS t1 ";
 //            TODO check error - empty
-            $o = $optionsArray[0];
-            $sql_where = "WHERE t1.attribute_id=" . $o['attribute_id'] . " AND t1.option_id=" . $o['option_id'] . " ";
-            $sql_join = "";
-            if ($count > 1) {
-                for ($i = 1; $i < $count; $i++) {
-                    $o = $optionsArray[$i];
-                    $sql_join .= " INNER JOIN temp_lines AS t" . ($i + 1) . " ON t" . ($i) . ".cart_line_id =t" . ($i + 1) . ".cart_line_id ";
-                    $sql_where .= " AND t" . ($i + 1) . ".attribute_id=" . $o['attribute_id'] . " AND t" . ($i + 1) . ".option_id=" . $o['option_id'] . " ";
-                }
+        $o = $optionsArray[0];
+        $sql_where = "WHERE t1.attribute_id=" . $o['attribute_id'] . " AND t1.option_id=" . $o['option_id'] . " ";
+        $sql_join = "";
+        if ($count > 1) {
+            for ($i = 1; $i < $count; $i++) {
+                $o = $optionsArray[$i];
+                $sql_join .= " INNER JOIN temp_lines AS t" . ($i + 1) . " ON t" . ($i) . ".cart_line_id =t" . ($i + 1) . ".cart_line_id ";
+                $sql_where .= " AND t" . ($i + 1) . ".attribute_id=" . $o['attribute_id'] . " AND t" . ($i + 1) . ".option_id=" . $o['option_id'] . " ";
             }
+        }
 
 //                                echo "\n ========= sql_join  ";
 //                                echo $sql_join;

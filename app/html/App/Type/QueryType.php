@@ -27,7 +27,7 @@ class QueryType extends ObjectType
                             'product_id' => Types::int()
                         ],
                         'resolve' => function ($root, $args) {
-                            $sql="SELECT * FROM product_entity WHERE product_id = {$args['product_id']}";
+                            $sql = "SELECT * FROM product_entity WHERE product_id = {$args['product_id']}";
                             return DB::selectOne($sql);
                         }
                     ],

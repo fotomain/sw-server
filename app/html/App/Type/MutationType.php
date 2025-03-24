@@ -147,7 +147,6 @@ class MutationType extends ObjectType
                             'cartParams' => Types::inputCartParams()
                         ],
                         'resolve' => function ($root, $args, $context, ResolveInfo $info) {
-
                             $a = [...$args['cartParams']];
 
                             $cartHeader = CartController::readCartHeader($a['cart_guid']);
@@ -177,7 +176,7 @@ class MutationType extends ObjectType
                                 echo new Error($errorText);
                             }
 
-                            if($productHasOptions) {
+                            if ($productHasOptions) {
                                 $resLine = CartController::read_cart_line_of_product_with_options(
                                     $a['cart_guid'],
                                     $a['product_id'],
@@ -189,19 +188,18 @@ class MutationType extends ObjectType
                                             WHERE product_id=" . $a['product_id'] . " 
                                             AND cart_id =
                                                 (SELECT cart_id FROM cart_header
-                                                WHERE cart_guid='".$a['cart_guid']. "')
+                                                WHERE cart_guid='" . $a['cart_guid'] . "')
                                 ";
-                                $resSql=DB::selectOne($sqlLine);
+                                $resSql = DB::selectOne($sqlLine);
 
 //                                echo json_encode($resSql);
                                 $resLine = new stdClass();
-                                if(null==$resSql){
+                                if (null == $resSql) {
                                     $resLine->result = "no_lines";
-                                }else{
+                                } else {
                                     $resLine->result = "found_1_line";
                                     $resLine->cart_line_id = $resSql->cart_line_id;
                                 }
-
                             }
                             switch ($resLine->result) {
                                 case "found_1_line":

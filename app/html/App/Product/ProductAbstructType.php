@@ -204,13 +204,13 @@ abstract class ProductAbstructType extends ObjectType
     public function getSqlTextSELECT($params)
     {
         $a = $params['filters'];
-        $filterProductName="";
+        $filterProductName = "";
 
-        if(!empty($a['filterProductName'])){
-            $filterProductName = " AND name LIKE '%".$a['filterProductName']."%'";
+        if (!empty($a['filterProductName'])) {
+            $filterProductName = " AND name LIKE '%" . $a['filterProductName'] . "%'";
         }
 
-        $ret = "SELECT * FROM product_entity ".$this->categorySuffix.$filterProductName;
+        $ret = "SELECT * FROM product_entity " . $this->categorySuffix . $filterProductName;
 
         return $ret;
     }
