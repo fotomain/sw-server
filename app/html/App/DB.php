@@ -12,7 +12,7 @@ class DB
 
     public static function init($config)
     {
-//        echo 'init1';
+
         self::$pdo = new PDO(
             "mysql:host={$config['host']};dbname={$config['database']};",
             $config['username'],
@@ -32,17 +32,16 @@ class DB
                 SELECT attributeSetId, attributeOptionId 
                 FROM products_attributes_table 
                 ORDER BY attributeSetId, attributeOptionId
-        "
-        );
+        ");
 
         $data = $handler->fetchAll(PDO::FETCH_COLUMN | PDO::FETCH_GROUP);
 
         $result = [];
         foreach ($data as $attributeSetId => $row) {
-            //echo $attributeSetId."<br/>\n";
+
             $items = [];
             foreach ($row as $attributeOptionId) {
-                //echo $attributeOptionId."<br/>\n";
+
                 $items . push($attributeOptionId);
             }
 
@@ -71,7 +70,7 @@ class DB
             echo $e->getMessage();
             return null;
         }
-        //echo json_encode($handler->fetchAll());
+
     }
 
     public static function selectOne($query)
@@ -97,10 +96,7 @@ class DB
     {
         $handler = self::$pdo->prepare($query);
         $handler->execute();
-//        echo "\n ====== execute";
-//        echo $handler->errorInfo()[2];
-//        echo "\n ====== execute";
-//        echo json_encode($handler);
+
         return $handler;
     }
 

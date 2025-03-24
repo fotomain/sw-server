@@ -14,10 +14,9 @@ class MutationType extends ObjectType
 {
     public function __construct()
     {
-        //echo " __construct1";
+
         $config = [
             'fields' => function () {
-//                cc6bb519-f811-11ef-a13a-55e370885b2f
                 return [
                     'createCart' => [
                         'type' => Types::cart(),
@@ -160,7 +159,7 @@ class MutationType extends ObjectType
                                 $productHasOptions = $a['product_has_options'];
                             }
 
-//                            echo "productHasOptions".$productHasOptions;
+//
 
                             $optionsArrayPassed = false;
                             $optionsArray = [];
@@ -192,7 +191,6 @@ class MutationType extends ObjectType
                                 ";
                                 $resSql = DB::selectOne($sqlLine);
 
-//                                echo json_encode($resSql);
                                 $resLine = new stdClass();
                                 if (null == $resSql) {
                                     $resLine->result = "no_lines";

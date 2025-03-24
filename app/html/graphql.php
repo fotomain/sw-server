@@ -44,7 +44,6 @@ try {
 
     $variables = isset($input['variables']) ? $input['variables'] : null;
 
-
     $schema = new Schema([
         'query' => Types::query(),
         'mutation' => Types::mutation()

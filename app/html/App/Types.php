@@ -6,17 +6,16 @@ use App\Cart\AddToCartLineProductOptionType;
 use App\Cart\CartLineOptionsType;
 use App\Cart\CartLineType;
 use App\Cart\CartType;
+use App\Cart\InputCartParamsType;
 use App\Product\AttributeOptionType;
 use App\Product\AttributeType;
 use App\Product\CategoryType;
 use App\Product\GalleryType;
+use App\Product\InputProductType;
 use App\Product\KeyValueType;
 use App\Product\ProductClothesType;
 use App\Product\ProductTechType;
 use App\Product\ProductType;
-use App\Type\InputCartParamsType;
-use App\Type\InputCartType;
-use App\Type\InputProductType;
 use App\Type\MutationType;
 use App\Type\QueryType;
 use GraphQL\Type\Definition\Type;
@@ -36,7 +35,6 @@ class Types
     private static $gallery;
     private static $attributeOption;
     private static $inputProduct;
-    private static $inputCart;
     private static $inputCartParams;
     private static $addToCartLineProductOption;
     private static $cartLineOption;
@@ -130,11 +128,6 @@ class Types
     public static function inputProduct()
     {
         return self::$inputProduct ?: (self::$inputProduct = new InputProductType());
-    }
-
-    public static function inputCart()
-    {
-        return self::$inputCart ?: (self::$inputCart = new InputCartType());
     }
 
     public static function inputCartParams()
